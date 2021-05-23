@@ -21,12 +21,12 @@ function Homepage() {
     // Remove "sticky" when you leave the scroll position
   
     function myFunctionForSticky() {
-      if (window.pageYOffset >= sticky) {
-        console.log("window.pageYOffset >= sticky");
-      } else {
-        console.log("Not window.pageYOffset >= sticky");
-      }
-      if (window.pageYOffset >= sticky) {
+      // if (window.pageYOffset >= sticky) {
+      //   console.log("window.pageYOffset >= sticky");
+      // } else {
+      //   console.log("Not window.pageYOffset >= sticky");
+      // }
+      if (window.pageYOffset >= (sticky)) {
         navbar.classList.add("sticky");
       } else {
         navbar.classList.remove("sticky");

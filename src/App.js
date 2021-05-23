@@ -10,7 +10,7 @@ function App() {
 
       {/* <Header/> */}
         <Switch>
-            <Route exact path="/" component={Homepage} />
+            <Route exact path="/portfolio" component={Homepage} />
         </Switch>
         <Footer/>
     </Router>

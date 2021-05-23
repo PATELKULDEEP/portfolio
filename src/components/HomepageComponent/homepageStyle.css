@@ -42,22 +42,24 @@
   display: flex;
   justify-content: space-around;
   padding: 10px;
-  height: 20px;
+  height: 24px;
   background-color:black;
   color: rgb(236, 221, 192);
-  width: 100%;
-
-  font-weight: bold;
+  font-weight: 700;
   font-size: 18px;
 }
+
 .projects{
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #1E2232;
+  color: aliceblue;
   min-height: 100vh;
 }
 .contact{
-  
+  background-color: #1E2232;
+  color: aliceblue;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +68,9 @@
 .sticky {
   position: fixed;
   top: 0;
-  background-color: #1E2232;
-  color: blue;
+  width: 100%;
+  background-color: #161a27;
+
+  color: white;
 
 }
