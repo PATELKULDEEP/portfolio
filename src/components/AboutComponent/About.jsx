@@ -1,6 +1,6 @@
 import React from 'react'
 import './aboutStyle.css';
-import kpImg from '../../assets/images/kp.png';
+import kpImg from '../../assets/images/kp2.png';
 function About() {
     return (
         <div className="about">

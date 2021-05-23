@@ -15,3 +15,100 @@
 .projects a{
     margin-bottom: 60px;
 }
+.projects-more{
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(236, 221, 192);
+    color: #1E2232;
+}
+/* .projects-cards{
+     display: flex;
+   flex-wrap: wrap;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+    transition: 0.3s;
+    width: 40%;
+    height: 50vh;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgb(255, 255, 255);
+  }
+  
+  .container {
+    padding: 2px 16px;
+  } */
+
+  .projects-cards {
+    margin: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card {
+    text-align: center;
+    height: fit-content;
+    width: 27%;
+
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+    transition: 0.3s;
+    min-height: 50vh;
+    margin: 15px;
+
+  }
+  .card p {
+    margin: 10px;
+  }
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgb(255, 255, 255);
+  }
+  .card img {
+    padding: 9px;
+    max-height: 50vh;
+    
+    max-width: 100%;
+    object-fit: scale-down;
+  }
+  .card h3 {
+    text-align: center;
+  }
+  .card p {
+    padding: 5px;
+    text-align: center;
+  }
+   .card-sources{
+       padding: 10px;
+    text-align: left;
+    display: flex;
+  }
+  .card-sources a{
+    margin-left: 15px;
+
+  }
+  .card-sources a:hover{
+    color: rgb(236, 221, 192);
+
+  }
+  .card-sources-link{
+    transition: transform 0.3s ease-out;
+
+  }
+  .card-sources-link:hover{
+    transform: translateY(-4px);
+
+  }
+  @media  (max-width: 850px) {
+    .card {
+      width: 45%;
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+
+    }
+  }
+  
+  @media  (max-width: 600px) {
+    .card {
+      width: 85%;
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+
+    }
+  }

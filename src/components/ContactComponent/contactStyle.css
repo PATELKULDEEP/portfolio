@@ -1,7 +1,34 @@
 .contact{display: flex;
+    flex-direction: column;
 align-items: center;
 justify-content: center;
 background-color: #1E2232;
 color: aliceblue;
 min-height: 100vh;
+}
+.contact form{
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+}
+@media (max-width: 650px) {
+   .contact form{
+       
+       width: 85vw;
+} 
+}
+.contact .form-input{
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+.contact form input{
+    padding: 5px;
+}
+.contact form button{
+    max-width: 20vw;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(236, 221, 192);
+    color: #1E2232;
+    align-items: center;
 }
