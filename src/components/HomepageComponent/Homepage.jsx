@@ -50,14 +50,14 @@ function Homepage() {
 
     </div>
        <div className="header-home" id="header-home">
-      <a href="#">
+           <a href="#">
                 Home
             </a>
             <a href="#projects">
                 Projects
             </a>
             <a href="#contact">
-                Contact Me
+                Contact
             </a>
       </div> 
       <div id="projects" className="projects">

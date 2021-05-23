@@ -5,10 +5,12 @@ import Header from "./components/HeaderComponent/Header";
 import Footer from "./components/FooterComponent/Footer";
 import FullProjects from "./components/ProjectsComponent/FullProjects";
 import MainContact from "./components/ContactComponent/MainContact";
+import ScrollToTop from "./components/ScrollToTop";
 function App() {
   return (
       
     <Router>
+      <ScrollToTop>
 
       {/* <Header/> */}
         <Switch>
@@ -17,6 +19,7 @@ function App() {
             <Route exact path="/portfolio/contact" component={MainContact} />
         </Switch>
         <Footer/>
+      </ScrollToTop>
     </Router>
 
   );
