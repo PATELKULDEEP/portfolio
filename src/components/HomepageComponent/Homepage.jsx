@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import Projects from '../ProjectsComponent/Projects';
 import Contact from '../ContactComponent/Contact';
 import Header from '../HeaderComponent/Header';
+import About from '../AboutComponent/About';
 function Homepage() {
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -27,9 +28,9 @@ function Homepage() {
         console.log("Not window.pageYOffset >= sticky");
       }
       if (window.pageYOffset >= (sticky)) {
-        navbar.classList.add("sticky");
+        navbar?.classList.add("sticky");
       } else {
-        navbar.classList.remove("sticky");
+        navbar?.classList.remove("sticky");
       }
     }
   
@@ -44,14 +45,14 @@ function Homepage() {
     return (
   <>
   <div className="App">
-
+        <h3>Hi, I am</h3>
         <h1>KULDEEP PATEL</h1>
         <h3>WEB DEVELOPER | ELECTRONIC AND TELECOMMUNICATION ENGINEERING | ROBOTICS ENTHUSIASTIC</h3>
 
     </div>
        <div className="header-home" id="header-home">
-           <a href="#">
-                Home
+           <a href="#about">
+                About
             </a>
             <a href="#projects">
                 Projects
@@ -60,10 +61,13 @@ function Homepage() {
                 Contact
             </a>
       </div> 
-      <div id="projects" className="projects">
+      <div id="about">
+        <About/>
+      </div>
+      <div id="projects">
         <Projects/>
       </div>
-      <div id="contact" className="contact">
+      <div id="contact">
         <Contact/>
       </div>
 </>

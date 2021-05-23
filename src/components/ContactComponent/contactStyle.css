@@ -1,0 +1,7 @@
+.contact{display: flex;
+align-items: center;
+justify-content: center;
+background-color: #1E2232;
+color: aliceblue;
+min-height: 100vh;
+}

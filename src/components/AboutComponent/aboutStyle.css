@@ -1,0 +1,51 @@
+.about {
+   display: flex;
+   flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: #1E2232;
+        color: aliceblue;
+        min-height: 100vh;
+        }
+
+.about h1{
+    margin-top: 20px;
+}
+.about-resume{
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width: 750px) {
+    .about-resume{
+        order: 2;
+    }
+}
+.about-resume button{
+    font-size: 16px;
+    font-weight: 500;
+    height: 4vh;
+    border-color: transparent;
+    background-color: rgb(236, 221, 192);
+}
+
+.about-resume img{
+    height: 50vh;
+    width: auto;
+}
+.about-details{
+    max-width: 60vw;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+@media (max-width: 750px) {
+   .about-details{
+ max-width: 90vw;
+ order: 1;
+   }       
+}
+.about-details p{
+    text-align: justify;
+    
+}

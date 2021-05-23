@@ -50,26 +50,11 @@
   font-size: 18px;
 }
 .header-home a{
-  height: 20px;
+  height: 30px;
   padding: 5px;
 }
 
-.projects{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1E2232;
-  color: aliceblue;
-  min-height: 100vh;
-}
-.contact{
-  background-color: #1E2232;
-  color: aliceblue;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-}
+
 .sticky {
   position: fixed;
   top: 0;

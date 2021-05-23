@@ -6,6 +6,8 @@ import Footer from "./components/FooterComponent/Footer";
 import FullProjects from "./components/ProjectsComponent/FullProjects";
 import MainContact from "./components/ContactComponent/MainContact";
 import ScrollToTop from "./components/ScrollToTop";
+import './App.css';
+
 function App() {
   return (
       
