@@ -3,11 +3,11 @@ import './homepageStyle.css'
 import {Link} from 'react-router-dom'
 import Projects from '../ProjectsComponent/Projects';
 import Contact from '../ContactComponent/Contact';
+import Header from '../HeaderComponent/Header';
 function Homepage() {
 
   document.addEventListener('DOMContentLoaded', function() {
     // When the event DOMContentLoaded occurs, it is safe to access the DOM
-  
     // When the user scrolls the page, execute myFunction 
     window.addEventListener('scroll', myFunctionForSticky);
   
@@ -21,11 +21,11 @@ function Homepage() {
     // Remove "sticky" when you leave the scroll position
   
     function myFunctionForSticky() {
-      // if (window.pageYOffset >= sticky) {
-      //   console.log("window.pageYOffset >= sticky");
-      // } else {
-      //   console.log("Not window.pageYOffset >= sticky");
-      // }
+      if (window.pageYOffset >= sticky) {
+        console.log("window.pageYOffset >= sticky");
+      } else {
+        console.log("Not window.pageYOffset >= sticky");
+      }
       if (window.pageYOffset >= (sticky)) {
         navbar.classList.add("sticky");
       } else {
@@ -49,7 +49,7 @@ function Homepage() {
         <h3>WEB DEVELOPER | ELECTRONIC AND TELECOMMUNICATION ENGINEERING | ROBOTICS ENTHUSIASTIC</h3>
 
     </div>
-      <div className="header-home" id="header-home">
+       <div className="header-home" id="header-home">
       <a href="#">
                 Home
             </a>
@@ -59,7 +59,7 @@ function Homepage() {
             <a href="#contact">
                 Contact Me
             </a>
-      </div>
+      </div> 
       <div id="projects" className="projects">
         <Projects/>
       </div>

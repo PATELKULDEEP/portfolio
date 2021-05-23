@@ -2,17 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './headerStyle.css'
 function Header() {
+
     return (
-        <div className="header">
-            <Link to="/">
+        <div className="header" id="header">
+            <a href="/portfolio/#">
                 Home
-            </Link>
-            <Link to="/contact">
-                Contact Me
-            </Link>
-            <Link to="/projects">
+            </a>
+            <Link to="/portfolio/projects">
                 Projects
             </Link>
+            <a href="/portfolio/#contact">
+                Contact
+            </a>
 
         </div>
     )

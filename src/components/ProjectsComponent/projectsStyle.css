@@ -1,0 +1,13 @@
+.projects{
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.projects h1{
+    margin-top: 50px;
+}
+.projects a{
+    margin-bottom: 15px;
+}

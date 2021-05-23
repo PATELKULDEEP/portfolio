@@ -41,12 +41,17 @@
 .header-home{
   display: flex;
   justify-content: space-around;
+  box-sizing: border-box;
   padding: 10px;
-  height: 24px;
+  width: 100%;
   background-color:black;
   color: rgb(236, 221, 192);
   font-weight: 700;
   font-size: 18px;
+}
+.header-home a{
+  height: 20px;
+  padding: 5px;
 }
 
 .projects{
@@ -68,9 +73,7 @@
 .sticky {
   position: fixed;
   top: 0;
-  width: 100%;
   background-color: #161a27;
-
   color: white;
 
 }
