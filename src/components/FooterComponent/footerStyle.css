@@ -1,0 +1,35 @@
+.footer{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color: #1E2232;
+    height: 30vh;
+}
+a{
+    text-decoration:none;
+    color: inherit;
+}
+.footer-logo{
+    font-size: 28px;
+    margin: 0px 15px 0px 15px;
+    color: blue;
+}
+.footer-logo:hover{
+  color: rgb(236, 221, 192);
+
+}
+/* .footer .linkedin-logo:hover{
+    color: inherit;
+}
+.footer .instagram-logo:hover{
+    color: inherit;
+    
+}
+.footer .github-logo:hover{
+    color: inherit;
+    
+}
+.footer .twitter-logo:hover{
+    color: inherit;
+    
+} */

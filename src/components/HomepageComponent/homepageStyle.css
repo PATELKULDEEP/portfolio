@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.App{
+  background-color: black;
+  color: rgb(236, 221, 192);
+
+}
+
+.App{
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  /* font-size: large; */
+}
+
+.App h1,h3{
+  margin: 10px;
+}
+.App h1{
+  letter-spacing: 1.5px;
+  /* font-family: 'Playfair Display', serif; */
+  font-family: 'Russo One', sans-serif;
+  font-size: 42px;
+  font-weight: 200;
+
+}
+.App h3{
+  letter-spacing: 1.5px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 22px;
+  /* font-weight: 100; */
+}
+.header-home{
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  height: 20px;
+  background-color:black;
+  color: rgb(236, 221, 192);
+  width: 100%;
+
+  font-weight: bold;
+  font-size: 18px;
+}
+.projects{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.contact{
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  background-color: #1E2232;
+  color: blue;
+
+}
