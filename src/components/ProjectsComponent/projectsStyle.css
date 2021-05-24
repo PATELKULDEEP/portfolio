@@ -65,16 +65,23 @@
   .card img {
     padding: 9px;
     max-height: 50vh;
-    
+    transition: transform 1s ease-out,border-radius 1s ease-out;
+    /* transition:  .5s ease-out; */
     max-width: 100%;
+    overflow: hidden;
+
     object-fit: scale-down;
+  }
+  .card img:hover{
+    transform: scale(1.2);
+    border-radius: 15%;
   }
   .card h3 {
     text-align: center;
   }
-  .card p {
+  .card .container p {
     padding: 5px;
-    text-align: center;
+    text-align: justify;
   }
    .card-sources{
        padding: 10px;
@@ -90,7 +97,7 @@
 
   }
   .card-sources-link{
-    transition: transform 0.3s ease-out;
+    transition: transform 0.2s ease-out;
 
   }
   .card-sources-link:hover{
