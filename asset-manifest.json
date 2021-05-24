@@ -1,28 +1,36 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.b5cf64cf.chunk.css",
-    "main.js": "/portfolio/static/js/main.2d410b92.chunk.js",
-    "main.js.map": "/portfolio/static/js/main.2d410b92.chunk.js.map",
+    "main.css": "/portfolio/static/css/main.3c256aff.chunk.css",
+    "main.js": "/portfolio/static/js/main.601b156d.chunk.js",
+    "main.js.map": "/portfolio/static/js/main.601b156d.chunk.js.map",
     "runtime-main.js": "/portfolio/static/js/runtime-main.9270f90a.js",
     "runtime-main.js.map": "/portfolio/static/js/runtime-main.9270f90a.js.map",
     "static/js/2.62e99342.chunk.js": "/portfolio/static/js/2.62e99342.chunk.js",
     "static/js/2.62e99342.chunk.js.map": "/portfolio/static/js/2.62e99342.chunk.js.map",
     "index.html": "/portfolio/index.html",
-    "static/css/main.b5cf64cf.chunk.css.map": "/portfolio/static/css/main.b5cf64cf.chunk.css.map",
+    "static/css/main.3c256aff.chunk.css.map": "/portfolio/static/css/main.3c256aff.chunk.css.map",
     "static/js/2.62e99342.chunk.js.LICENSE.txt": "/portfolio/static/js/2.62e99342.chunk.js.LICENSE.txt",
+    "static/media/arduinoCertificate.800a42c8.png": "/portfolio/static/media/arduinoCertificate.800a42c8.png",
+    "static/media/awsCoursera.9e2b25ea.png": "/portfolio/static/media/awsCoursera.9e2b25ea.png",
+    "static/media/intoIoTCoursera.a7163b4d.png": "/portfolio/static/media/intoIoTCoursera.a7163b4d.png",
+    "static/media/javascriptFreeCodeCamp.d590841a.png": "/portfolio/static/media/javascriptFreeCodeCamp.d590841a.png",
     "static/media/kp.6ce9a5e9.png": "/portfolio/static/media/kp.6ce9a5e9.png",
     "static/media/kp2.3307e4a5.png": "/portfolio/static/media/kp2.3307e4a5.png",
     "static/media/mit.7cf622f7.png": "/portfolio/static/media/mit.7cf622f7.png",
+    "static/media/open-source-coursera.b3ead58e.png": "/portfolio/static/media/open-source-coursera.b3ead58e.png",
+    "static/media/responsiveCoursera.e411f6cb.png": "/portfolio/static/media/responsiveCoursera.e411f6cb.png",
     "static/media/sih.bd8b3bfb.png": "/portfolio/static/media/sih.bd8b3bfb.png",
+    "static/media/sihcertificate.0e837bd1.png": "/portfolio/static/media/sihcertificate.0e837bd1.png",
     "static/media/technohub.32b88024.png": "/portfolio/static/media/technohub.32b88024.png",
     "static/media/tedx.18f8afdd.png": "/portfolio/static/media/tedx.18f8afdd.png",
     "static/media/todo.ad574587.png": "/portfolio/static/media/todo.ad574587.png",
+    "static/media/webDesignFreeCodeCamp.ce0238d6.png": "/portfolio/static/media/webDesignFreeCodeCamp.ce0238d6.png",
     "static/media/zenshin.8a3742f4.png": "/portfolio/static/media/zenshin.8a3742f4.png"
   },
   "entrypoints": [
     "static/js/runtime-main.9270f90a.js",
     "static/js/2.62e99342.chunk.js",
-    "static/css/main.b5cf64cf.chunk.css",
-    "static/js/main.2d410b92.chunk.js"
+    "static/css/main.3c256aff.chunk.css",
+    "static/js/main.601b156d.chunk.js"
   ]
 }
