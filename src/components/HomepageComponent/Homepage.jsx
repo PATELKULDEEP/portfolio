@@ -5,6 +5,7 @@ import Projects from '../ProjectsComponent/Projects';
 import Contact from '../ContactComponent/Contact';
 import Header from '../HeaderComponent/Header';
 import About from '../AboutComponent/About';
+import Achievemens from '../AchievementsComponent/Achievements';
 function Homepage() {
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -47,7 +48,10 @@ function Homepage() {
   <div className="App">
         <h3>Hi, I am</h3>
         <h1>KULDEEP PATEL</h1>
-        <h3>WEB DEVELOPER | ELECTRONIC AND TELECOMMUNICATION ENGINEERING | ROBOTICS ENTHUSIASTIC</h3>
+        <div className="homepage-subtitle">
+
+        <h3>WEB DEVELOPER </h3><span></span><h3> ELECTRONIC AND TELECOMMUNICATION ENGINEERING</h3><span></span><h3>ROBOTICS ENTHUSIASTIC</h3>
+        </div>
 
     </div>
        <div className="header-home" id="header-home">
@@ -57,8 +61,8 @@ function Homepage() {
             <a href="#projects">
                 Projects
             </a>
-            <a href="#contact">
-                Contact
+            <a href="#achievement">
+                Achievement
             </a>
       </div> 
       <div id="about">
@@ -66,6 +70,9 @@ function Homepage() {
       </div>
       <div id="projects">
         <Projects/>
+      </div>
+      <div id="achievement">
+        <Achievemens/>
       </div>
       <div id="contact">
         <Contact/>

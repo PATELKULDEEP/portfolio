@@ -14,7 +14,7 @@
 
   /* width */
 ::-webkit-scrollbar {
-  width: 16px;
+  width: 11px;
         background-color: #1E2232;
 }
 
@@ -26,11 +26,13 @@
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background:  #03CA95; 
+  background:  rgb(236, 221, 192); 
+  /* color: rgb(236, 221, 192); */
+
   border-radius: 7px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #FC0362; 
+  background: white; 
 }

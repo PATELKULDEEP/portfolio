@@ -95,26 +95,7 @@ Resource for Businesses Prize.</p>
             </div>
           </div>
         </div>
-        <div className='card'>
-          <img src={mitImg} alt='Avatar'  />
-          <div className='container'>
-            <h4>
-              <b>MIT Covid-19 Challenge</b>
-            </h4>
-            <p>We developed a platform to support the facility allocations in resp. hospitals. It helped to improve patient flow and provide reliable and
-trustworthy information about the availability of nearest centres</p>
-            <div className="card-sources">
-                <div className="card-sources-link">
 
-                <a href="" >Project</a>
-                </div>
-                <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div>
-            </div>
-          </div>
-        </div>
         <div className='card'>
           <img src={todoImg} alt='Avatar'  />
           <div className='container'>

@@ -11,8 +11,8 @@ function Header() {
             <Link to="/portfolio/projects">
                 Projects
             </Link>
-            <a href="/portfolio/#contact">
-                Contact
+            <a href="/portfolio/#achievement">
+                Achievement
             </a>
 
         </div>

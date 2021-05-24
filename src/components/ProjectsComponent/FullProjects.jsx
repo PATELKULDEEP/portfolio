@@ -17,7 +17,7 @@ function FullProjects() {
 
         <div className="full-projects">
             <h1>
-                Projects
+                Works / Projects
                 </h1>
         </div>
         

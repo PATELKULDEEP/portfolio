@@ -7,6 +7,7 @@ import FullProjects from "./components/ProjectsComponent/FullProjects";
 import MainContact from "./components/ContactComponent/MainContact";
 import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
+import MainAchievements from "./components/AchievementsComponent/MainAchievements";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Switch>
             <Route exact path="/portfolio" component={Homepage} />
             <Route exact path="/portfolio/projects" component={FullProjects} />
-            <Route exact path="/portfolio/contact" component={MainContact} />
+            <Route exact path="/portfolio/achievements" component={MainAchievements} />
         </Switch>
         <Footer/>
       </ScrollToTop>
