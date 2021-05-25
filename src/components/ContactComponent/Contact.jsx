@@ -1,35 +1,90 @@
-import React from 'react'
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
 
-import './contactStyle.css';
+import "./contactStyle.css";
 function Contact() {
-    return (
-        <>
-        
-        <div className="contact">
-            <h1>Contact</h1>
-            <form >
-                <div className="form-input">
-                    <label >Full Name :</label>
-                    <input type="text" placeholder="Enter Your Name" required/>
-                </div>
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
-                <div className="form-input">
-                    <label >Email-Address :</label>
-                    <input type="email" placeholder="Enter Your Email-Address" required/>
-                </div>
-                <div className="form-input">
-                    <label >Subject :</label>
-                    <input type="text" placeholder="Enter Message Subject" />
-                </div>
-                <div className="form-input">
-                    <label >Message :</label>
-                    <textarea type="text" placeholder="Enter Your Message" rows="4" required></textarea>
-                </div>
-                <button className="form-input" onClick={() => {window.alert("Currently Not working please wait for website to launch. launch date for website is 20-5-21")}}>Submit</button>
-            </form>
-        </div>
-        </>
-    )
+  const  sendEmail = (e) => {
+    e.preventDefault();
+
+    window.alert("Currently form is not working, Please contact with me through social medias's given in footer")
+
+    // emailjs
+    //   .sendForm(
+    //     "service_eqp4gzb",
+    //     "template_fksqbf6",
+    //     { name: "name", email: "email",  message: "message" },
+    //     "user_cYxQj4CXBNqFVuIqfsndF"
+    //   )
+    //   .then(
+    //     (result) => {
+    //       console.log(result.text);
+    //     },
+    //     (error) => {
+    //       console.log(error.text);
+    //     }
+    //   );
+  }
+
+  return (
+    <>
+      <div className='contact'>
+        <h1>Contact</h1>
+        <form onSubmit={sendEmail}>
+          <div className='form-input'>
+            <label>Full Name :</label>
+            <input
+              type='text'
+              placeholder='Enter Your Name'
+              onChange={(e) => setName(e.target.value)}
+              name='name'
+              id='name'
+              required
+            />
+          </div>
+
+          <div className='form-input'>
+            <label>Email-Address :</label>
+            <input
+              type='email'
+              placeholder='Enter Your Email-Address'
+              onChange={(e) => setEmail(e.target.value)}
+              name='email'
+              id='email'
+              required
+            />
+          </div>
+          <div className='form-input'>
+            <label>Subject :</label>
+            <input
+              type='text'
+              placeholder='Enter Message Subject'
+              onChange={(e) => setSubject(e.target.value)}
+              name='subject'
+            />
+          </div>
+          <div className='form-input'>
+            <label>Message :</label>
+            <textarea
+              type='text'
+              placeholder='Enter Your Message'
+              rows='4'
+              onChange={(e) => setMessage(e.target.value)}
+              name='message'
+              required
+            ></textarea>
+          </div>
+          <button className='form-input' type='submit'>
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
+  );
 }
 
-export default Contact
+export default Contact;

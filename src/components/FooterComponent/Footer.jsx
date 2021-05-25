@@ -27,19 +27,19 @@ function Footer() {
       href="https://github.com/PATELKULDEEP"
       target="_blank"
       className="btn contact-details"
-      ><i class="fab fa-github"></i> GitHub</a
+      ><i className="fab fa-github"></i> GitHub</a
     >
     <a
       href="https://twitter.com/patelkuldeep0"
       target="_blank"
       className="btn contact-details"
-      ><i class="fab fa-twitter"></i> Twitter</a
+      ><i className="fab fa-twitter"></i> Twitter</a
     >
     <a
       href="https://twitter.com/patelkuldeep0"
       target="_blank"
       className="btn contact-details"
-      ><i class="fab fa-instagram"></i> Instagram</a
+      ><i className="fab fa-instagram"></i> Instagram</a
     >
 
   </div>

@@ -32,11 +32,11 @@ criminal tracking and record maintenance</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="https://drive.google.com/file/d/1ltE_6_12S5zY99vIHuCPhYs6-Q61bwE5/view" >Presentation</a>
+                <a href="https://drive.google.com/file/d/1ltE_6_12S5zY99vIHuCPhYs6-Q61bwE5/view" target="_blank" >Presentation</a>
                 </div>
                 <div className="card-sources-link">
 
-<a href="" >Certificate</a>
+<a href="https://drive.google.com/file/d/1iaw-8BCG4L_BsOVmWmswa86WsbNjcex2/view?usp=sharing"  target="_blank" >Certificate</a>
 </div>
             </div>
           </div>
@@ -51,7 +51,8 @@ criminal tracking and record maintenance</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Certificate</a>
+                <a href="https://drive.google.com/file/d/1AdwlZnYORyWWFPGyX4mUK6eFzLmLL1pW/view?usp=sharing"  target="_blank" >Certificate</a>
+
                 </div>
 
             </div>
@@ -66,7 +67,8 @@ criminal tracking and record maintenance</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Certificate</a>
+                <a href="https://freecodecamp.org/certification/patelkuldeep/javascript-algorithms-and-data-structures"  target="_blank" >Certificate</a>
+
                 </div>
         
             </div>
@@ -81,7 +83,8 @@ criminal tracking and record maintenance</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Certificate</a>
+                <a href="https://drive.google.com/file/d/1rC6066ZPC_ZnsgA48OiO52mCaw8rm-ri/view?usp=sharing" target="_blank" >Certificate</a>
+
                 </div>
 
             </div>
@@ -96,7 +99,8 @@ criminal tracking and record maintenance</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Certificate</a>
+                <a href="https://drive.google.com/file/d/1v1A2PYFZZL3uIIb4odgzVm5jqzfMkmr2/view?usp=sharing" target="_blank" >Certificate</a>
+
                 </div>
  
             </div>
@@ -111,7 +115,8 @@ criminal tracking and record maintenance</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Certificate</a>
+                <a href="https://freecodecamp.org/certification/patelkuldeep/responsive-web-design" target="_blank" >Certificate</a>
+
                 </div>
 
             </div>
