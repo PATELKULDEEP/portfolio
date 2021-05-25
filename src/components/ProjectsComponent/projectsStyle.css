@@ -73,7 +73,7 @@
     object-fit: scale-down;
   }
   .card img:hover{
-    transform: scale(1.2);
+    transform: scale(1.19);
     border-radius: 15%;
   }
   .card h3 {

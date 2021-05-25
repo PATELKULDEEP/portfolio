@@ -1,4 +1,4 @@
-.full-projects{
+.full-achievements{
     min-height: 60vh;
     background-color: rgb(4, 41, 58);
     color: whitesmoke;
@@ -7,8 +7,14 @@
     align-items: center;
     justify-content: center;
 }
-.full-projects h1{
+.full-achievements h1{
     padding-top: 50px;
+    margin: 5px;
+}
+@media (max-width: 610px) {
+  .full-achievements h1{
+    font-size: 46px;
+  }
 }
 /* .projects{
   
@@ -30,7 +36,7 @@
     color: #1E2232;
 } */
 
-.fullprojects-cards {
+.full-achievements-cards {
     /* margin: 25px; */
     padding: 25px;
     background-color: rgb(4, 41, 58);

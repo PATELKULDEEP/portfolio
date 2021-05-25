@@ -26,12 +26,8 @@ function Projects() {
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="https://tedxbitd.in/" target="_blank" >Website</a>
                 </div>
-                {/* <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div> */}
             </div>
           </div>
         </div>
@@ -48,7 +44,7 @@ Oauth for authentication</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="https://technohubbit.in/" target="_blank" >Website</a>
                 </div>
 
             </div>
@@ -64,13 +60,10 @@ Oauth for authentication</p>
 criminal tracking and record maintenance
 Used Firebase a back-end for entire application</p>
             <div className="card-sources">
-                <div className="card-sources-link">
-
-                <a href="https://drive.google.com/file/d/1ltE_6_12S5zY99vIHuCPhYs6-Q61bwE5/view" >Presentation</a>
-                </div>
+  
                 <div className="card-sources-link">
                     
-                    <a href="" >Code</a>
+                    <a href="https://drive.google.com/file/d/1ltE_6_12S5zY99vIHuCPhYs6-Q61bwE5/view" target="_blank" >Presentation</a>
                     </div>
             </div>
           </div>
@@ -86,11 +79,15 @@ Resource for Businesses Prize.</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="https://service-p.web.app/" target="_blank" >Website</a>
+                </div>
+                <div className="card-sources-link">
+
+                <a href="https://devpost.com/software/zenshin" target="_blank" >Devpost</a>
                 </div>
                 <div className="card-sources-link">
                     
-                    <a href="" >Code</a>
+                    <a href="https://github.com/fazer1929/Zenshin" target="_blank" >Code</a>
                     </div>
             </div>
           </div>
@@ -110,7 +107,7 @@ Resource for Businesses Prize.</p>
                 </div>
                 <div className="card-sources-link">
                     
-                    <a href="" >Code</a>
+                    <a href="https://github.com/PATELKULDEEP/todo-app" target="_blank" >Code</a>
                     </div>
             </div>
           </div>

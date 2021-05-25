@@ -25,20 +25,19 @@ function Achievemens() {
           <img src={sihcertificate} alt='Avatar'  />
           <div className='container'>
             <h4>
-              <b>SIH Hackathon</b>
+              <b>SIH Finalist</b>
             </h4>
-            <p>Android application and web portal for police for effective
-criminal tracking and record maintenance
-Used Firebase a back-end for entire application</p>
+            <p>We Develop Android application and web portal for police for effective
+criminal tracking and record maintenance</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
                 <a href="https://drive.google.com/file/d/1ltE_6_12S5zY99vIHuCPhYs6-Q61bwE5/view" >Presentation</a>
                 </div>
                 <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div>
+
+<a href="" >Certificate</a>
+</div>
             </div>
           </div>
         </div>
@@ -46,95 +45,75 @@ Used Firebase a back-end for entire application</p>
           <img src={intoIoTCoursera} alt='Avatar'  />
           <div className='container'>
             <h4>
-              <b>MIT Covid-19 Challenge</b>
+              <b>Intro to IoT</b>
             </h4>
-            <p>We developed a platform to support the facility allocations in resp. hospitals. It helped to improve patient flow and provide reliable and
-trustworthy information about the availability of nearest centres</p>
+            <p>Completed the Introduction to Internet of Things and Embedded System from coursera</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="" >Certificate</a>
                 </div>
-                <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div>
+
             </div>
           </div>
         </div>        <div className='card'>
           <img src={javascriptFreeCodeCamp} alt='Avatar'  />
           <div className='container'>
             <h4>
-              <b>MIT Covid-19 Challenge</b>
+              <b>JavaScript</b>
             </h4>
-            <p>We developed a platform to support the facility allocations in resp. hospitals. It helped to improve patient flow and provide reliable and
-trustworthy information about the availability of nearest centres</p>
+            <p>I have successfully completed the course of JavaScript Algorithms and Data Structure from freeCodeCamp</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="" >Certificate</a>
                 </div>
-                <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div>
+        
             </div>
           </div>
         </div>        <div className='card'>
           <img src={openSourceCoursera} alt='Avatar'  />
           <div className='container'>
             <h4>
-              <b>MIT Covid-19 Challenge</b>
+              <b>Open Source and Linux</b>
             </h4>
-            <p>We developed a platform to support the facility allocations in resp. hospitals. It helped to improve patient flow and provide reliable and
-trustworthy information about the availability of nearest centres</p>
+            <p>Learned the Open Source Software Development, Linux and Git from The Linux Foundationo in Coursera Platform</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="" >Certificate</a>
                 </div>
-                <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div>
+
             </div>
           </div>
         </div>        <div className='card'>
           <img src={responsiveCoursera} alt='Avatar'  />
           <div className='container'>
             <h4>
-              <b>MIT Covid-19 Challenge</b>
+              <b>Responsive Website Basics</b>
             </h4>
-            <p>We developed a platform to support the facility allocations in resp. hospitals. It helped to improve patient flow and provide reliable and
-trustworthy information about the availability of nearest centres</p>
+            <p>Completed the course on Responsive Website Basics Code with HTML, CSS, and JavaScript in Coursera Platform</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="" >Certificate</a>
                 </div>
-                <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div>
+ 
             </div>
           </div>
         </div>        <div className='card'>
           <img src={webDesignFreeCodeCamp} alt='Avatar'  />
           <div className='container'>
             <h4>
-              <b>MIT Covid-19 Challenge</b>
+              <b>Responsive Web Design</b>
             </h4>
-            <p>We developed a platform to support the facility allocations in resp. hospitals. It helped to improve patient flow and provide reliable and
-trustworthy information about the availability of nearest centres</p>
+            <p>Learned about HTML and CSS by building a responsive website in freeCodeCamps Platform and Successfully completed the course</p>
             <div className="card-sources">
                 <div className="card-sources-link">
 
-                <a href="" >Project</a>
+                <a href="" >Certificate</a>
                 </div>
-                <div className="card-sources-link">
-                    
-                    <a href="" >Code</a>
-                    </div>
+
             </div>
           </div>
         </div>
