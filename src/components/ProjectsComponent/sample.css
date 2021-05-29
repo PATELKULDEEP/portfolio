@@ -1,0 +1,19 @@
+.card__wrap--outer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: black;
+}
+
+.card__wrap--inner {
+    display: flex;
+    flex-direction: row;
+    width: 33.33%;
+}
+
+.card__wrap--inner .card{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

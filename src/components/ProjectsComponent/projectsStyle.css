@@ -1,4 +1,35 @@
-.projects{
+/* .projectsk {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: black;
+}
+.projectsk .projects-cardsk{
+  display: flex;
+  flex-direction: row;
+  width: 33.33%;
+}
+.projectsk .projects-cardsk .cardk{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 50vh;
+}
+.flexible {
+  flex-grow: 1;
+} */
+
+
+
+
+
+
+
+
+
+
+ .projects{
   
     display: flex;
     flex-direction: column;
@@ -20,39 +51,22 @@
     background-color: rgb(236, 221, 192);
     color: #1E2232;
 }
-/* .projects-cards{
-     display: flex;
-   flex-wrap: wrap;
-}
-.card {
-    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
-    transition: 0.3s;
-    width: 40%;
-    height: 50vh;
-  }
-  
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgb(255, 255, 255);
-  }
-  
-  .container {
-    padding: 2px 16px;
-  } */
 
   .projects-cards {
     margin: 25px;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
-  .card {
+  .projects-cards .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     text-align: center;
-    height: fit-content;
-    width: 27%;
 
     box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
     transition: 0.3s;
-    min-height: 50vh;
     margin: 15px;
 
   }
@@ -66,7 +80,6 @@
     padding: 9px;
     max-height: 50vh;
     transition: transform .7s ease-out,border-radius .8s ease-out;
-    /* transition:  .5s ease-out; */
     max-width: 100%;
     overflow: hidden;
 
@@ -91,7 +104,6 @@
   }
   .card-sources a{
     margin-left: 15px;
-
   }
   .card-sources a:hover{
     color: rgb(236, 221, 192);
@@ -119,4 +131,4 @@
       box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
 
     }
-  }
+  } 

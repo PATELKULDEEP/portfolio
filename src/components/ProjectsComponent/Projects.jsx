@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../HeaderComponent/Header";
+
 import "./projectsStyle.css";
+// import  './sample.css';
+
 import kpImg from "../../assets/images/kp.png";
 import mitImg from '../../assets/images/mit.png';
 import sihImg from '../../assets/images/sih.png';
@@ -13,9 +16,19 @@ import zenshinImg from '../../assets/images/zenshin.png';
 
 function Projects() {
   return (
+
+
+
+
     <div className='projects'>
       <h1>Work / Projects</h1>
       <div className='projects-cards'>
+
+
+
+    
+
+    
       <div className='card'>
           <img src={tedxImg} alt='Avatar'  />
           <div className='container'>
@@ -112,14 +125,15 @@ Resource for Businesses Prize.</p>
             </div>
           </div>
         </div>
-        
+         
 
-</div>
+ </div>
       <Link
         to='/portfolio/projects'
         className='projects-more'
       >{` More Projects --> `}</Link>
-    </div>
+    </div> 
+
   );
 }
 
