@@ -1,6 +1,6 @@
 import React from 'react'
 import './aboutStyle.css';
-import kpImg from '../../assets/images/kp2.png';
+import kpImg from '../../assets/images/kp3.png';
 function About() {
     return (
         <div className="about">
@@ -15,8 +15,8 @@ function About() {
             <div>
 
             <p>
-                I'm a Electronics and Telecommunication Engineer and a FullStack Web Developer based in India. 
-                </p><p>I am Technical Lead of TechnoHub and Developer Student Community of our college club, and Technical Team member of TEDxBITD.
+                I'm a Java Developer at Accenture, dedicated to managing Java applications for key life science client. 
+                </p><p>Graduated with a degree in Electronic and Telecommunication. Passionate about crafting robust solutions and contributing to impactful projects.
             </p>
             </div>
             </div>

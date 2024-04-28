@@ -50,7 +50,7 @@ function Homepage() {
         <h1>KULDEEP PATEL</h1>
         <div className="homepage-subtitle">
 
-        <span></span><h3> ELECTRONIC AND TELECOMMUNICATION ENGINEER</h3><span></span>
+        <span></span><h3> SOFTWARE ENGINEER </h3><span></span>
         </div>
 
     </div>
