@@ -36,7 +36,7 @@ function Footer() {
       ><i className="fab fa-twitter"></i> Twitter</a
     >
     <a
-      href="https://www.instagram.com/kuldeeppatel0001/"
+      href="https://www.instagram.com/patelkuldeep_kp/"
       target="_blank"
       className="btn contact-details"
       ><i className="fab fa-instagram"></i> Instagram</a

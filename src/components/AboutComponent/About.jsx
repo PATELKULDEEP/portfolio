@@ -13,10 +13,12 @@ function About() {
             <div className="about-details">
             <h1 className="about-title">About</h1>
             <div>
-
+            <h3>
+            Java Developer / Building Secure and Scalable Applications
+            </h3>
             <p>
-                I'm a Java Developer at Accenture, dedicated to managing Java applications for key life science client. 
-                </p><p>Graduated with a degree in Electronic and Telecommunication. Passionate about crafting robust solutions and contributing to impactful projects.
+            I'm a passionate software developer with a strong foundation in Java and a knack for crafting secure, high-performing applications.  My journey began with a B.Tech in Electronics and Telecommunication Engineering from the Bhilai Institute of Technology (BIT), Durg, Chhattisgarh. This solid foundation equipped me with the technical knowledge to thrive in the software development world.
+                </p><p>Fueled by my passion for technology, I honed my skills by participating in hackathons, where I developed websites using React and learned to thrive under pressure.  At Accenture, I played a key role in developing and maintaining a large-scale enterprise application using JSP and Spring Boot frameworks. My focus on security led me to identify and remediate over 1300+ critical vulnerabilities, significantly enhancing application security.
             </p>
             </div>
             </div>
