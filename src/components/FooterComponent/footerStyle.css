@@ -148,6 +148,11 @@ a{
 .contact-details { color: var(--text-primary); }
 .contact-details:hover { color: var(--accent); }
 
+@media (min-width: 651px) {
+  .contact-section { min-height: 42vh; padding: 72px 32px; }
+  .contact-links { margin-top: 2.5rem; }
+}
+
 @media (max-width: 650px) {
   .contact-section { min-height: 44vh; padding: 64px 20px; }
   .contact-section-header > h2 { font-size: clamp(2rem, 10vw, 3rem); }

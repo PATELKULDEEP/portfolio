@@ -7,10 +7,9 @@
     width: 100%;
     box-sizing: border-box;
 
-    padding: 110px 5vw 80px;
+    padding: 110px 4vw 80px;
 
     background: var(--background);
-
     color: var(--text-primary);
 
     overflow-x: hidden;
@@ -23,6 +22,7 @@
 
 .travel-header {
     max-width: 1100px;
+
     margin: 0 auto 28px;
 
     text-align: center;
@@ -31,7 +31,7 @@
 .travel-header h1 {
     margin: 0;
 
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-size: clamp(42px, 6vw, 76px);
 
     line-height: 1.05;
 
@@ -125,10 +125,10 @@
     border-radius: 30px;
 
     border:
-        1px solid rgba(255, 255, 255, 0.14);
+        1px solid var(--travel-toggle-border);
 
     background:
-        rgba(8, 10, 17, 0.55);
+        var(--travel-toggle-surface);
 
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.2);
@@ -176,13 +176,13 @@
 .travel-map-card {
     width: 100%;
 
-    max-width: 1450px;
+    max-width: 1550px;
 
     margin: 0 auto;
 
     overflow: hidden;
 
-    border-radius: 8px;
+    border-radius: 14px;
 
     border:
         1px solid rgba(255, 255, 255, 0.16);
@@ -190,7 +190,7 @@
     background: var(--surface);
 
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.3);
+        0 30px 80px rgba(0, 0, 0, 0.30);
 }
 
 
@@ -211,10 +211,10 @@
 
     box-sizing: border-box;
 
-    background: var(--surface);
+    background: var(--travel-map-header);
 
     border-bottom:
-        1px solid rgba(255, 255, 255, 0.08);
+        1px solid var(--border);
 }
 
 .travel-map-title {
@@ -226,11 +226,12 @@
 
     font-size: 15px;
 
-    color: #e9e7e2;
+    color: var(--travel-map-header-text);
 }
 
 .travel-live-dot {
     width: 8px;
+
     height: 8px;
 
     border-radius: 50%;
@@ -245,12 +246,12 @@
 .travel-map-hint {
     font-size: 11px;
 
-    color: #737b90;
+    color: var(--travel-map-header-muted);
 }
 
 
 /* =========================================================
-   MAP
+   MAP CONTAINER
 ========================================================= */
 
 .travel-map {
@@ -259,22 +260,26 @@
     width: 100%;
 
     /*
-     * Give MapLibre a strong, predictable height.
+     * Larger desktop map.
      */
-    height: min(72vh, 780px);
+    height: min(76vh, 820px);
 
     min-height: 560px;
 
     /*
-     * Neutral fallback while map tiles load.
+     * BLUE fallback background.
+     *
+     * If tiles take a moment to load, the map area
+     * still looks like water rather than a blank white box.
      */
-    background:
-        #e8e5dc;
+    background: #cfe4ee;
+
+    overflow: hidden;
 }
 
 
 /*
- * MapLibre container must have real dimensions.
+ * MapLibre must occupy the entire map container.
  */
 
 .travel-map .maplibregl-map {
@@ -300,22 +305,28 @@
     overflow: hidden;
 
     border:
-        1px solid rgba(255, 255, 255, 0.18);
+        1px solid rgba(30, 35, 45, 0.18);
 
     background:
-        var(--map-surface);
+        rgba(255, 255, 255, 0.96);
+
+    border-radius: 9px;
 
     box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.25);
+        0 7px 24px rgba(0, 0, 0, 0.18);
 }
 
 .travel-map .maplibregl-ctrl-group button {
     background-color: transparent;
+
+    width: 34px;
+
+    height: 34px;
 }
 
 .travel-map .maplibregl-ctrl-group button:hover {
     background-color:
-        rgba(255, 255, 255, 0.08);
+        rgba(0, 0, 0, 0.06);
 }
 
 
@@ -325,15 +336,17 @@
 
 .travel-map .maplibregl-ctrl-attrib {
     background:
-        var(--map-surface);
+        rgba(255, 255, 255, 0.92);
 
-    color: #858ca0;
+    color: #555;
 
     border-radius: 5px;
+
+    font-size: 10px;
 }
 
 .travel-map .maplibregl-ctrl-attrib a {
-    color: #b9aa83;
+    color: #555;
 }
 
 
@@ -357,10 +370,10 @@
     border-radius: 14px;
 
     border:
-        1px solid rgba(255, 255, 255, 0.12);
+        1px solid var(--border);
 
     background:
-        var(--map-surface);
+        var(--travel-overlay);
 
     backdrop-filter: blur(12px);
 
@@ -371,7 +384,7 @@
 .legend-title {
     margin-bottom: 10px;
 
-    color: #777f94;
+    color: var(--travel-map-header-muted);
 
     font-size: 9px;
 
@@ -389,13 +402,14 @@
 
     margin-top: 7px;
 
-    color: #c8cbd4;
+    color: var(--travel-overlay-text);
 
     font-size: 12px;
 }
 
 .legend-dot {
     width: 8px;
+
     height: 8px;
 
     flex-shrink: 0;
@@ -428,12 +442,13 @@
     position: relative;
 
     width: 24px;
+
     height: 24px;
 
     padding: 0;
 
     border:
-        2px solid rgba(255, 255, 255, 0.9);
+        2px solid rgba(255, 255, 255, 0.95);
 
     border-radius: 50%;
 
@@ -464,9 +479,11 @@
     position: absolute;
 
     width: 6px;
+
     height: 6px;
 
     top: 50%;
+
     left: 50%;
 
     transform:
@@ -701,20 +718,23 @@
     position: relative;
 
     width: 28px;
+
     height: 28px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     border-radius: 50%;
 
     background: #ead9b1;
 
-    border: 3px solid var(--surface);
+    border:
+        3px solid #1b1e28;
 
-    color: var(--on-accent);
+    color: #202432;
 
     font-size: 10px;
 
@@ -838,7 +858,7 @@
 .journey-card h2 {
     margin: 8px 0 0;
 
-    color: #eee9dc;
+    color: var(--travel-heading);
 
     font-size:
         clamp(20px, 3vw, 30px);
@@ -873,7 +893,7 @@
 
     margin: 17px 0 25px;
 
-    color: #9299ad;
+    color: var(--travel-body-muted);
 
     line-height: 1.7;
 
@@ -905,19 +925,21 @@
     border-radius: 10px;
 
     background:
-        rgba(255, 255, 255, 0.035);
+        var(--travel-soft-surface);
 
     border:
-        1px solid rgba(255, 255, 255, 0.07);
+        1px solid var(--travel-soft-border);
 }
 
 .route-stop > span {
     width: 20px;
+
     height: 20px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     border-radius: 50%;
@@ -934,7 +956,7 @@
 .route-stop strong {
     display: block;
 
-    color: #d9dce4;
+    color: var(--text-primary);
 
     font-size: 11px;
 }
@@ -976,11 +998,13 @@
 
 .planned-icon {
     width: 44px;
+
     height: 44px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     border-radius: 13px;
@@ -1014,7 +1038,7 @@
 
     margin-top: 4px;
 
-    color: #e9e5db;
+    color: var(--travel-heading);
 
     font-size: 22px;
 
@@ -1123,7 +1147,7 @@
     .travel-page {
         padding:
             92px
-            12px
+            10px
             60px;
     }
 
@@ -1158,7 +1182,7 @@
     }
 
     .travel-map-card {
-        border-radius: 16px;
+        border-radius: 14px;
     }
 
     .travel-map-header {
@@ -1171,8 +1195,12 @@
         display: none;
     }
 
+    /*
+     * Keep mobile map tall enough to interact with.
+     */
+
     .travel-map {
-        height: 70vh;
+        height: 68vh;
 
         min-height: 500px;
     }
@@ -1193,6 +1221,7 @@
 
     .travel-marker {
         width: 22px;
+
         height: 22px;
     }
 
@@ -1216,6 +1245,7 @@
 
     .planned-icon {
         width: 38px;
+
         height: 38px;
     }
 
@@ -1249,6 +1279,7 @@
 
     .travel-page {
         padding-left: 8px;
+
         padding-right: 8px;
     }
 
@@ -1280,12 +1311,16 @@
         transform-origin:
             bottom left;
     }
-
 }
 
-/* Shared portfolio theme and narrow-screen safeguards. */
+
+/* =========================================================
+   THEME INTEGRATION
+========================================================= */
+
 .travel-page {
     background: var(--background);
+
     color: var(--text-primary);
 }
 
@@ -1293,6 +1328,7 @@
 .journey-card,
 .travel-achievements {
     background: var(--surface);
+
     border-color: var(--border);
 }
 
@@ -1303,21 +1339,22 @@
     color: var(--text-secondary);
 }
 
-@media (max-width: 600px) {
-    .travel-stats { width: 100%; }
-    .travel-stat { min-width: 0; flex: 1; padding: 0 10px; }
-    .travel-map { height: 58vh; min-height: 360px; max-height: 520px; }
-    .travel-map-legend { max-width: 125px; }
-    .journey-section { width: 100%; }
-    .journey-route-list { gap: 7px; }
-    .route-stop { max-width: 100%; }
-}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
+
         animation-iteration-count: 1 !important;
+
         scroll-behavior: auto !important;
+
         transition-duration: 0.01ms !important;
     }
 }

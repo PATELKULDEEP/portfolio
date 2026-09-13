@@ -74,6 +74,19 @@
     text-align: left;
 }
 
+@media (min-width: 751px) {
+    .about {
+        grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+        max-width: 1180px;
+        gap: clamp(40px, 5vw, 72px);
+        padding: 64px max(32px, 6vw);
+    }
+
+    .about-resume img {
+        width: min(100%, 250px);
+    }
+}
+
 @media (max-width: 750px) {
     .about {
         display: flex;

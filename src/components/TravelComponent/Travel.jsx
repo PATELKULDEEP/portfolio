@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
 import {
     Map,
     Marker,
@@ -12,6 +13,7 @@ import {
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./TravelStyle.css";
+
 import Header from "../HeaderComponent/Header";
 
 /* =========================================================
@@ -19,23 +21,85 @@ import Header from "../HeaderComponent/Header";
 ========================================================= */
 
 /*
- * IMPORTANT:
- * We intentionally use a light geographic base map.
+ * We are intentionally using a lightweight raster basemap
+ * instead of depending on an external vector style.
  *
- * The PAGE remains dark, but the actual map needs contrast
- * so India, states, roads and geography remain visible.
+ * Benefits:
+ * - Classic, colorful street-map appearance
+ * - Blue oceans and readable geography
+ * - Roads, cities and rivers
+ * - No API key
+ * - Works with MapLibre
  */
-const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
+const MAP_STYLE = {
+    version: 8,
 
-const INDIA_STATES =
-    `${process.env.PUBLIC_URL}/maps/india.json`;
+    sources: {
+        "osm-raster": {
+            type: "raster",
+            tiles: [
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+            ],
+            tileSize: 256,
+            attribution:
+                "© Esri, HERE, Garmin, USGS, Intermap, INCREMENT P, and the GIS User Community",
+        },
+    },
+
+    layers: [
+        {
+            id: "osm-background",
+            type: "background",
+            paint: {
+                "background-color": "#dcebf2",
+            },
+        },
+        {
+            id: "osm-raster-layer",
+            type: "raster",
+            source: "osm-raster",
+            minzoom: 0,
+            maxzoom: 19,
+            paint: {
+                "raster-opacity": 1,
+                "raster-fade-duration": 0,
+            },
+        },
+    ],
+};
 
 /*
- * Keep the user inside/around India.
+ * IMPORTANT:
+ *
+ * This must be a STATE-level GeoJSON.
+ *
+ * File:
+ *
+ * public/maps/india-states-simplified.geojson
  */
-const INDIA_BOUNDS = [
-    [66, 5],
-    [101, 38],
+const INDIA_STATES =
+    `${process.env.PUBLIC_URL}/maps/india-states-simplified.geojson`;
+
+/*
+ * Initial area we want visible.
+ *
+ * Slightly wider than India so the Arabian Sea,
+ * Bay of Bengal and surrounding geography are visible.
+ */
+const INDIA_FIT_BOUNDS = [
+    [67, 6],
+    [99, 36],
+];
+
+/*
+ * Maximum area the user can pan around.
+ *
+ * This prevents the map from becoming completely empty
+ * if the user drags very far away.
+ */
+const INDIA_MAX_BOUNDS = [
+    [58, -5],
+    [108, 42],
 ];
 
 /* =========================================================
@@ -51,102 +115,120 @@ const PLACES = [
         type: "place",
         coordinates: [72.8777, 19.076],
     },
+
     {
         name: "Delhi",
         state: "Delhi",
         type: "place",
         coordinates: [77.1025, 28.7041],
     },
+
     {
         name: "Manali",
         state: "Himachal Pradesh",
         type: "place",
         coordinates: [77.1892, 32.2396],
     },
+
     {
         name: "Prayagraj",
         state: "Uttar Pradesh",
         type: "place",
         coordinates: [81.8463, 25.4358],
     },
+
     {
         name: "Puri",
         state: "Odisha",
         type: "place",
         coordinates: [85.8315, 19.8135],
     },
+
     {
         name: "Bhubaneswar",
         state: "Odisha",
         type: "place",
         coordinates: [85.8245, 20.2961],
     },
+
     {
         name: "Indore",
         state: "Madhya Pradesh",
         type: "place",
         coordinates: [75.8577, 22.7196],
     },
+
     {
         name: "Raipur",
         state: "Chhattisgarh",
         type: "place",
         coordinates: [81.6296, 21.2514],
     },
+
     {
         name: "Bastar",
         state: "Chhattisgarh",
         type: "place",
         coordinates: [81.9496, 19.1071],
     },
+
     {
         name: "Amarkantak",
         state: "Madhya Pradesh",
         type: "place",
         coordinates: [81.7597, 22.674],
     },
+
     {
         name: "Bengaluru",
         state: "Karnataka",
         type: "place",
         coordinates: [77.5946, 12.9716],
     },
+
     {
         name: "Hyderabad",
         state: "Telangana",
         type: "place",
         coordinates: [78.4867, 17.385],
     },
+
     {
         name: "Varkala",
         state: "Kerala",
         type: "place",
         coordinates: [76.7067, 8.7379],
     },
+
     {
         name: "Kanyakumari",
         state: "Tamil Nadu",
         type: "place",
         coordinates: [77.5385, 8.0883],
     },
+
     {
         name: "Rameshwaram",
         state: "Tamil Nadu",
         type: "place",
+        jyotirlinga: true,
         coordinates: [79.3129, 9.2876],
     },
+
     {
         name: "Madurai",
         state: "Tamil Nadu",
         type: "place",
         coordinates: [78.1198, 9.9252],
     },
+
     {
         name: "Dhanushkodi",
         state: "Tamil Nadu",
         type: "place",
         coordinates: [79.312, 9.174],
     },
+
     {
         name: "Kodaikanal",
         state: "Tamil Nadu",
@@ -163,24 +245,28 @@ const PLACES = [
         jyotirlinga: true,
         coordinates: [70.4012, 20.888],
     },
+
     {
         name: "Dwarka",
         state: "Gujarat",
         type: "pilgrimage",
         coordinates: [68.9678, 22.2442],
     },
+
     {
         name: "Nageshwar",
         state: "Gujarat",
         type: "jyotirlinga",
         coordinates: [69.1125, 22.3364],
     },
+
     {
         name: "Statue of Unity",
         state: "Gujarat",
         type: "place",
         coordinates: [73.7191, 21.838],
     },
+
     {
         name: "Vadodara",
         state: "Gujarat",
@@ -196,12 +282,14 @@ const PLACES = [
         type: "charDham",
         coordinates: [78.457, 31.014],
     },
+
     {
         name: "Gangotri",
         state: "Uttarakhand",
         type: "charDham",
         coordinates: [78.941, 30.994],
     },
+
     {
         name: "Kedarnath",
         state: "Uttarakhand",
@@ -209,6 +297,7 @@ const PLACES = [
         jyotirlinga: true,
         coordinates: [79.0669, 30.7346],
     },
+
     {
         name: "Badrinath",
         state: "Uttarakhand",
@@ -224,30 +313,35 @@ const PLACES = [
         type: "jyotirlinga",
         coordinates: [78.868, 16.072],
     },
+
     {
         name: "Mahakaleshwar",
         state: "Madhya Pradesh",
         type: "jyotirlinga",
         coordinates: [75.7687, 23.1828],
     },
+
     {
         name: "Omkareshwar",
         state: "Madhya Pradesh",
         type: "jyotirlinga",
         coordinates: [76.1501, 22.2426],
     },
+
     {
         name: "Bhimashankar",
         state: "Maharashtra",
         type: "jyotirlinga",
         coordinates: [73.531, 19.0728],
     },
+
     {
         name: "Trimbakeshwar",
         state: "Maharashtra",
         type: "jyotirlinga",
         coordinates: [73.529, 19.932],
     },
+
     {
         name: "Grishneshwar",
         state: "Maharashtra",
@@ -284,61 +378,73 @@ const ROAD_TRIP = [
         state: "Chhattisgarh",
         coordinates: [81.6296, 21.2514],
     },
+
     {
         name: "Grishneshwar",
         state: "Maharashtra",
         coordinates: [75.4777, 20.0268],
     },
+
     {
         name: "Shirdi",
         state: "Maharashtra",
         coordinates: [74.4776, 19.7669],
     },
+
     {
         name: "Bhimashankar",
         state: "Maharashtra",
         coordinates: [73.531, 19.0728],
     },
+
     {
         name: "Trimbakeshwar",
         state: "Maharashtra",
         coordinates: [73.529, 19.932],
     },
+
     {
         name: "Statue of Unity",
         state: "Gujarat",
         coordinates: [73.7191, 21.838],
     },
+
     {
         name: "Vadodara",
         state: "Gujarat",
         coordinates: [73.1812, 22.3072],
     },
+
     {
         name: "Somnath",
         state: "Gujarat",
         coordinates: [70.4012, 20.888],
     },
+
     {
         name: "Dwarka",
         state: "Gujarat",
         coordinates: [68.9678, 22.2442],
     },
+
     {
         name: "Nageshwar",
         state: "Gujarat",
         coordinates: [69.1125, 22.3364],
     },
+
     {
         name: "Indore",
         state: "Madhya Pradesh",
         coordinates: [75.8577, 22.7196],
     },
+
     {
         name: "Nagpur",
         state: "Maharashtra",
         coordinates: [79.0882, 21.1458],
     },
+
     {
         name: "Raipur",
         state: "Chhattisgarh",
@@ -357,52 +463,59 @@ const ROAD_TRIP_LINE = {
 };
 
 /* =========================================================
-   INDIA STATE LAYERS
+   STATE LAYERS
 ========================================================= */
-
-/*
- * Very subtle fill.
- *
- * The previous version used a relatively dark fill with
- * 55% opacity. That effectively covered the underlying map.
- *
- * Now the map remains visible and the state boundaries
- * provide the visual separation.
- */
 
 const stateFillLayer = {
     id: "india-state-fill",
     type: "fill",
+
     paint: {
-        "fill-color": "#d9c69a",
-        "fill-opacity": 0.045,
+        /*
+         * Very subtle so the real map remains visible.
+         */
+        "fill-color": "#D6B36A",
+        "fill-opacity": 0.055,
     },
 };
 
 const stateBorderLayer = {
     id: "india-state-border",
     type: "line",
+
     paint: {
-        "line-color": "#8f8062",
+        "line-color": "#6F6670",
+
         "line-width": [
             "interpolate",
             ["linear"],
             ["zoom"],
-            3,
-            1,
-            5,
-            1.5,
-            7,
+
             2,
+            0.8,
+
+            3,
+            1.0,
+
+            4,
+            1.25,
+
+            6,
+            1.8,
+
             9,
-            2.5,
+            2.3,
         ],
-        "line-opacity": 0.72,
+
+        "line-opacity": 0.78,
     },
 };
 
 /*
- * State names become progressively stronger as you zoom.
+ * State names are visible directly on the map.
+ *
+ * We deliberately allow overlap because you specifically
+ * wanted to know which state is which without hovering.
  */
 const stateLabelLayer = {
     id: "india-state-labels",
@@ -413,9 +526,11 @@ const stateLabelLayer = {
             "coalesce",
             ["get", "ST_NM"],
             ["get", "ST_NAME"],
+            ["get", "State_Name"],
             ["get", "NAME_1"],
             ["get", "NAME"],
             ["get", "name"],
+            ["get", "st_nm"],
             "",
         ],
 
@@ -423,40 +538,56 @@ const stateLabelLayer = {
             "interpolate",
             ["linear"],
             ["zoom"],
-            3,
+
+            2,
             8,
-            4.5,
+
+            3,
+            9,
+
+            4,
             10,
+
             6,
             12,
-            8,
-            13,
+
+            9,
+            14,
         ],
 
         "text-font": [
             "Open Sans Regular",
         ],
 
-        "text-allow-overlap": false,
-        "text-ignore-placement": false,
+        "text-anchor": "center",
+
+        "text-allow-overlap": true,
+
+        "text-ignore-placement": true,
+
         "symbol-placement": "point",
     },
 
     paint: {
-        "text-color": "#5c5547",
-        "text-halo-color": "#f4f0e6",
-        "text-halo-width": 1.5,
+        "text-color": "#4F4A52",
+
+        "text-halo-color": "#FFFFFF",
+
+        "text-halo-width": 1.8,
 
         "text-opacity": [
             "interpolate",
             ["linear"],
             ["zoom"],
+
+            2,
+            0.72,
+
             3,
-            0.35,
-            4,
-            0.7,
+            0.82,
+
             5,
-            0.9,
+            0.95,
         ],
     },
 };
@@ -467,29 +598,59 @@ const stateLabelLayer = {
 
 const roadTripLineLayer = {
     id: "road-trip-line",
+
     type: "line",
 
     paint: {
-        "line-color": "#D49A45",
+        "line-color": "#D88436",
+
         "line-width": [
             "interpolate",
             ["linear"],
             ["zoom"],
+
+            2,
             3,
-            2.5,
+
+            4,
+            4,
+
+            6,
+            4,
+
+            9,
             5,
+        ],
+
+        "line-opacity": 1,
+
+        "line-cap": "round",
+
+        "line-join": "round",
+    },
+};
+
+const roadTripCasingLayer = {
+    id: "road-trip-casing",
+
+    type: "line",
+
+    paint: {
+        "line-color": "#FFFFFF",
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            2,
+            6,
             4,
             8,
-            5,
+            6,
+            10,
+            9,
+            12,
         ],
-
-        "line-opacity": 0.9,
-
-        "line-dasharray": [
-            1,
-            1.5,
-        ],
-
+        "line-opacity": 0.88,
         "line-cap": "round",
         "line-join": "round",
     },
@@ -536,12 +697,85 @@ const getTypeClass = (place) => {
 ========================================================= */
 
 const Travel = () => {
+    const mapRef = useRef(null);
+
     const [view, setView] = useState("places");
+
+    const [roadTripRoute, setRoadTripRoute] =
+        useState(ROAD_TRIP_LINE);
+
     const [selectedPlace, setSelectedPlace] =
         useState(null);
 
-    const placesCount = 33;
-    const statesCount = 14;
+    useEffect(() => {
+        const routeCoordinates = ROAD_TRIP.map(
+            (place) => place.coordinates.join(",")
+        ).join(";");
+
+        fetch(
+            `https://router.project-osrm.org/route/v1/driving/${routeCoordinates}?overview=full&geometries=geojson`
+        )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Unable to load road route");
+                }
+
+                return response.json();
+            })
+            .then((data) => {
+                const routeGeometry = data.routes?.[0]?.geometry;
+
+                if (routeGeometry) {
+                    setRoadTripRoute({
+                        type: "Feature",
+                        geometry: routeGeometry,
+                    });
+                }
+            })
+            .catch(() => {
+            });
+    }, []);
+
+    /*
+     * Calculate these instead of hard-coding them.
+     */
+    const placesCount = PLACES.length;
+
+    const statesCount = new Set(
+        PLACES.map((place) => place.state)
+    ).size;
+
+    /*
+     * Fit the entire India region when the map loads.
+     *
+     * fitBounds is much better than manually guessing
+     * one zoom level because desktop and mobile have
+     * completely different aspect ratios.
+     */
+    const handleMapLoad = () => {
+        if (!mapRef.current) {
+            return;
+        }
+
+        mapRef.current.fitBounds(
+            INDIA_FIT_BOUNDS,
+            {
+                padding: {
+                    top: 35,
+                    bottom: 35,
+                    left: 35,
+                    right: 35,
+                },
+
+                /*
+                 * Prevent desktop from starting too zoomed in.
+                 */
+                maxZoom: 3.8,
+
+                duration: 0,
+            }
+        );
+    };
 
     const handleMarkerClick = (place) => {
         setSelectedPlace(place);
@@ -550,263 +784,503 @@ const Travel = () => {
     return (
         <>
             <Header />
+
             <div className="travel-page">
 
-            {/* =================================================
-                HEADER
-            ================================================= */}
+                {/* =================================================
+                    HEADER
+                ================================================= */}
 
-            <section className="travel-header">
+                <section className="travel-header">
 
-                <h1>
-                    Places I've{" "}
-                    <span>explored</span>
-                </h1>
+                    <h1>
+                        Places I've{" "}
+                        <span>explored</span>
+                    </h1>
 
-                <p>
-                    A visual collection of the places,
-                    pilgrimages and journeys I've experienced.
-                </p>
+                    <p>
+                        A visual collection of the places,
+                        pilgrimages and journeys I've experienced.
+                    </p>
 
-                <div className="travel-stats">
+                    <div className="travel-stats">
 
-                    <div className="travel-stat">
-                        <strong>
-                            {placesCount}+
-                        </strong>
+                        <div className="travel-stat">
+                            <strong>
+                                {placesCount}+
+                            </strong>
 
-                        <span>
-                            PLACES
-                        </span>
-                    </div>
+                            <span>
+                                PLACES
+                            </span>
+                        </div>
 
-                    <div className="travel-stat">
-                        <strong>
-                            {statesCount}
-                        </strong>
+                        <div className="travel-stat">
+                            <strong>
+                                {statesCount}
+                            </strong>
 
-                        <span>
-                            STATES / UTs
-                        </span>
-                    </div>
-
-                </div>
-
-            </section>
-
-            {/* =================================================
-                VIEW TOGGLE
-            ================================================= */}
-
-            <div className="travel-toggle">
-
-                <button
-                    className={
-                        view === "places"
-                            ? "active"
-                            : ""
-                    }
-                    onClick={() => {
-                        setView("places");
-                        setSelectedPlace(null);
-                    }}
-                >
-                    ✦ Places
-                </button>
-
-                <button
-                    className={
-                        view === "journeys"
-                            ? "active"
-                            : ""
-                    }
-                    onClick={() => {
-                        setView("journeys");
-                        setSelectedPlace(null);
-                    }}
-                >
-                    ↝ Journeys
-                </button>
-
-            </div>
-
-            {/* =================================================
-                MAP CARD
-            ================================================= */}
-
-            <section className="travel-map-card">
-
-                <div className="travel-map-header">
-
-                    <div className="travel-map-title">
-
-                        <span className="travel-live-dot" />
-
-                        {view === "places"
-                            ? "Places I've explored"
-                            : "Follow my journeys"}
+                            <span>
+                                STATES / UTs
+                            </span>
+                        </div>
 
                     </div>
 
-                    <div className="travel-map-hint">
+                </section>
 
-                        {view === "places"
-                            ? "Hover a marker • Click for details"
-                            : "Follow the route"}
+                {/* =================================================
+                    VIEW TOGGLE
+                ================================================= */}
 
-                    </div>
+                <div className="travel-toggle">
 
-                </div>
-
-                <div className="travel-map">
-
-                    <Map
-                        initialViewState={{
-                            longitude: 78.9,
-                            latitude: 22.4,
-                            zoom: 4.2,
-                        }}
-
-                        mapStyle={MAP_STYLE}
-
-                        minZoom={3.7}
-                        maxZoom={9}
-
-                        maxBounds={INDIA_BOUNDS}
-
-                        renderWorldCopies={false}
-
-                        dragRotate={false}
-                        touchPitch={false}
-
-                        scrollZoom={true}
-                        doubleClickZoom={true}
-                        dragPan={true}
-                        touchZoomRotate={true}
-
-                        style={{
-                            width: "100%",
-                            height: "100%",
+                    <button
+                        className={
+                            view === "places"
+                                ? "active"
+                                : ""
+                        }
+                        onClick={() => {
+                            setView("places");
+                            setSelectedPlace(null);
                         }}
                     >
+                        ✦ Places
+                    </button>
 
-                        {/* =================================================
-                            INDIA STATES
-                        ================================================= */}
+                    <button
+                        className={
+                            view === "journeys"
+                                ? "active"
+                                : ""
+                        }
+                        onClick={() => {
+                            setView("journeys");
+                            setSelectedPlace(null);
+                        }}
+                    >
+                        ↝ Journeys
+                    </button>
 
-                        <Source
-                            id="india-states"
-                            type="geojson"
-                            data={INDIA_STATES}
+                </div>
+
+                {/* =================================================
+                    MAP CARD
+                ================================================= */}
+
+                <section className="travel-map-card">
+
+                    <div className="travel-map-header">
+
+                        <div className="travel-map-title">
+
+                            <span className="travel-live-dot" />
+
+                            {view === "places"
+                                ? "Places I've explored"
+                                : "Follow my journeys"}
+
+                        </div>
+
+                        <div className="travel-map-hint">
+
+                            {view === "places"
+                                ? "Hover a marker • Click for details"
+                                : "Follow the route"}
+
+                        </div>
+
+                    </div>
+
+                    <div className="travel-map">
+
+                        <Map
+                            ref={mapRef}
+
+                            mapStyle={MAP_STYLE}
+
+                            onLoad={handleMapLoad}
+
+                            minZoom={2.2}
+
+                            maxZoom={12}
+
+                            maxBounds={
+                                INDIA_MAX_BOUNDS
+                            }
+
+                            renderWorldCopies={false}
+
+                            dragRotate={false}
+
+                            touchPitch={false}
+
+                            scrollZoom={true}
+
+                            doubleClickZoom={true}
+
+                            dragPan={true}
+
+                            touchZoomRotate={true}
+
+                            cooperativeGestures={false}
+
+                            attributionControl={true}
+
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                            }}
                         >
 
-                            <Layer
-                                {...stateFillLayer}
-                            />
+                            {/* =================================================
+                                STATE BOUNDARIES
+                            ================================================= */}
 
-                            <Layer
-                                {...stateBorderLayer}
-                            />
+                            <Source
+                                id="india-states"
+                                type="geojson"
+                                data={INDIA_STATES}
+                            >
 
-                            <Layer
-                                {...stateLabelLayer}
-                            />
+                                <Layer
+                                    {...stateFillLayer}
+                                />
 
-                        </Source>
+                                <Layer
+                                    {...stateBorderLayer}
+                                />
 
-                        {/* =================================================
-                            PLACES
-                        ================================================= */}
+                                <Layer
+                                    {...stateLabelLayer}
+                                />
 
-                        {view === "places" &&
-                            PLACES.map((place) => (
+                            </Source>
 
-                                <Marker
-                                    key={`${place.name}-${place.state}`}
-                                    longitude={
-                                        place.coordinates[0]
-                                    }
-                                    latitude={
-                                        place.coordinates[1]
-                                    }
-                                    anchor="center"
-                                >
+                            {/* =================================================
+                                PLACES VIEW
+                            ================================================= */}
 
-                                    <button
-                                        type="button"
-                                        className={`travel-marker ${getTypeClass(
-                                            place
-                                        )}`}
-                                        onClick={() =>
-                                            handleMarkerClick(
-                                                place
-                                            )
+                            {view === "places" &&
+                                PLACES.map((place) => (
+
+                                    <Marker
+                                        key={`${place.name}-${place.state}`}
+                                        longitude={
+                                            place.coordinates[0]
                                         }
-                                        aria-label={
-                                            place.name
+                                        latitude={
+                                            place.coordinates[1]
+                                        }
+                                        anchor="center"
+                                    >
+
+                                        <button
+                                            type="button"
+
+                                            className={`travel-marker ${getTypeClass(
+                                                place
+                                            )}`}
+
+                                            onClick={() =>
+                                                handleMarkerClick(
+                                                    place
+                                                )
+                                            }
+
+                                            aria-label={
+                                                place.name
+                                            }
+                                        >
+
+                                            <span className="marker-core" />
+
+                                            <span className="marker-tooltip">
+
+                                                <strong>
+                                                    {place.name}
+                                                </strong>
+
+                                                <small>
+                                                    {place.state}
+                                                </small>
+
+                                            </span>
+
+                                        </button>
+
+                                    </Marker>
+
+                                ))}
+
+                            {/* =================================================
+                                JOURNEY VIEW
+                            ================================================= */}
+
+                            {view === "journeys" && (
+                                <>
+
+                                    <Source
+                                        id="road-trip"
+                                        type="geojson"
+                                        data={
+                                            roadTripRoute
                                         }
                                     >
 
-                                        <span className="marker-core" />
+                                        <Layer
+                                            {...roadTripCasingLayer}
+                                        />
 
-                                        <span className="marker-tooltip">
+                                        <Layer
+                                            {...roadTripLineLayer}
+                                        />
 
-                                            <strong>
-                                                {place.name}
-                                            </strong>
+                                    </Source>
 
-                                            <small>
-                                                {place.state}
-                                            </small>
+                                    {ROAD_TRIP.map(
+                                        (
+                                            place,
+                                            index
+                                        ) => (
 
-                                        </span>
+                                            <Marker
+                                                key={`${place.name}-${index}`}
+                                                longitude={
+                                                    place.coordinates[0]
+                                                }
+                                                latitude={
+                                                    place.coordinates[1]
+                                                }
+                                                anchor="center"
+                                            >
 
-                                    </button>
+                                                <div className="journey-marker">
 
-                                </Marker>
+                                                    <span>
+                                                        {index + 1}
+                                                    </span>
 
-                            ))}
+                                                    <div className="journey-marker-tooltip">
+
+                                                        <strong>
+                                                            {place.name}
+                                                        </strong>
+
+                                                        <small>
+                                                            {place.state}
+                                                        </small>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </Marker>
+
+                                        )
+                                    )}
+
+                                </>
+                            )}
+
+                            {/* =================================================
+                                POPUP
+                            ================================================= */}
+
+                            {selectedPlace &&
+                                view === "places" && (
+
+                                    <Popup
+                                        longitude={
+                                            selectedPlace
+                                                .coordinates[0]
+                                        }
+
+                                        latitude={
+                                            selectedPlace
+                                                .coordinates[1]
+                                        }
+
+                                        anchor="bottom"
+
+                                        closeOnClick={false}
+
+                                        closeOnMove={false}
+
+                                        onClose={() =>
+                                            setSelectedPlace(
+                                                null
+                                            )
+                                        }
+
+                                        maxWidth="260px"
+                                    >
+
+                                        <div className="place-popup">
+
+                                            <div
+                                                className={`popup-type ${getTypeClass(
+                                                    selectedPlace
+                                                )}`}
+                                            >
+                                                {getTypeLabel(
+                                                    selectedPlace
+                                                )}
+                                            </div>
+
+                                            <h3>
+                                                {
+                                                    selectedPlace.name
+                                                }
+                                            </h3>
+
+                                            <p>
+                                                {
+                                                    selectedPlace.state
+                                                }
+                                            </p>
+
+                                            {selectedPlace.jyotirlinga && (
+
+                                                <div className="popup-badge">
+                                                    ✦ One of the 10
+                                                    Jyotirlingas visited
+                                                </div>
+
+                                            )}
+
+                                            {selectedPlace.type ===
+                                                "charDham" && (
+
+                                                <div className="popup-badge">
+                                                    ✦ Part of the
+                                                    Char Dham
+                                                </div>
+
+                                            )}
+
+                                        </div>
+
+                                    </Popup>
+
+                                )}
+
+                            {/* =================================================
+                                MAP CONTROLS
+                            ================================================= */}
+
+                            <NavigationControl
+                                position="bottom-right"
+                                showCompass={false}
+                            />
+
+                            <FullscreenControl
+                                position="bottom-right"
+                            />
+
+                            <ScaleControl
+                                position="bottom-left"
+                            />
+
+                        </Map>
 
                         {/* =================================================
-                            JOURNEY
+                            LEGEND
                         ================================================= */}
 
-                        {view === "journeys" && (
-                            <>
+                        <div className="travel-map-legend">
 
-                                <Source
-                                    id="road-trip"
-                                    type="geojson"
-                                    data={ROAD_TRIP_LINE}
-                                >
+                            <div className="legend-title">
+                                MAP LEGEND
+                            </div>
 
-                                    <Layer
-                                        {...roadTripLineLayer}
-                                    />
+                            <div className="legend-item">
+                                <span className="legend-dot place" />
+                                Place
+                            </div>
 
-                                </Source>
+                            <div className="legend-item">
+                                <span className="legend-dot pilgrimage" />
+                                Pilgrimage
+                            </div>
 
-                                {ROAD_TRIP.map(
-                                    (place, index) => (
+                            <div className="legend-item">
+                                <span className="legend-dot char-dham" />
+                                Char Dham
+                            </div>
 
-                                        <Marker
-                                            key={`${place.name}-${index}`}
-                                            longitude={
-                                                place.coordinates[0]
-                                            }
-                                            latitude={
-                                                place.coordinates[1]
-                                            }
-                                            anchor="center"
-                                        >
+                            <div className="legend-item">
+                                <span className="legend-dot jyotirlinga" />
+                                Jyotirlinga
+                            </div>
 
-                                            <div className="journey-marker">
+                        </div>
+
+                    </div>
+
+                </section>
+
+                {/* =================================================
+                    JOURNEY INFORMATION
+                ================================================= */}
+
+                {view === "journeys" && (
+
+                    <section className="journey-section">
+
+                        <div className="journey-card">
+
+                            <div className="journey-card-top">
+
+                                <div>
+
+                                    <span className="journey-label">
+                                        MEMORABLE ROAD TRIP
+                                    </span>
+
+                                    <h2>
+                                        Raipur → Maharashtra →
+                                        Gujarat → MP → Raipur
+                                    </h2>
+
+                                </div>
+
+                                <div className="journey-distance">
+                                    ROAD TRIP
+                                </div>
+
+                            </div>
+
+                            <p>
+                                A multi-day road journey covering
+                                Grishneshwar, Shirdi,
+                                Bhimashankar, Trimbakeshwar,
+                                Statue of Unity, Vadodara,
+                                Somnath, Dwarka, Nageshwar,
+                                Indore and Nagpur.
+                            </p>
+
+                            <div className="journey-route-list">
+
+                                {ROAD_TRIP
+                                    .slice(0, -1)
+                                    .map(
+                                        (
+                                            place,
+                                            index
+                                        ) => (
+
+                                            <div
+                                                className="route-stop"
+                                                key={`${place.name}-${index}`}
+                                            >
 
                                                 <span>
                                                     {index + 1}
                                                 </span>
 
-                                                <div className="journey-marker-tooltip">
+                                                <div>
 
                                                     <strong>
                                                         {place.name}
@@ -820,276 +1294,80 @@ const Travel = () => {
 
                                             </div>
 
-                                        </Marker>
+                                        )
+                                    )}
 
-                                    )
-                                )}
+                            </div>
 
-                            </>
-                        )}
+                        </div>
 
                         {/* =================================================
-                            POPUP
+                            NEXT PLANNED JOURNEY
                         ================================================= */}
 
-                        {selectedPlace &&
-                            view === "places" && (
+                        <div className="planned-journey">
 
-                                <Popup
-                                    longitude={
-                                        selectedPlace
-                                            .coordinates[0]
-                                    }
-                                    latitude={
-                                        selectedPlace
-                                            .coordinates[1]
-                                    }
-                                    anchor="bottom"
-                                    closeOnClick={false}
-                                    closeOnMove={false}
-                                    onClose={() =>
-                                        setSelectedPlace(null)
-                                    }
-                                    maxWidth="260px"
-                                >
-
-                                    <div className="place-popup">
-
-                                        <div
-                                            className={`popup-type ${getTypeClass(
-                                                selectedPlace
-                                            )}`}
-                                        >
-                                            {getTypeLabel(
-                                                selectedPlace
-                                            )}
-                                        </div>
-
-                                        <h3>
-                                            {selectedPlace.name}
-                                        </h3>
-
-                                        <p>
-                                            {selectedPlace.state}
-                                        </p>
-
-                                        {selectedPlace.jyotirlinga && (
-                                            <div className="popup-badge">
-                                                ✦ One of the 10
-                                                Jyotirlingas visited
-                                            </div>
-                                        )}
-
-                                        {selectedPlace.type ===
-                                            "charDham" && (
-                                            <div className="popup-badge">
-                                                ✦ Part of the Char Dham
-                                            </div>
-                                        )}
-
-                                    </div>
-
-                                </Popup>
-
-                            )}
-
-                        {/* =================================================
-                            CONTROLS
-                        ================================================= */}
-
-                        <NavigationControl
-                            position="bottom-right"
-                            showCompass={false}
-                        />
-
-                        <FullscreenControl
-                            position="bottom-right"
-                        />
-
-                        <ScaleControl
-                            position="bottom-left"
-                        />
-
-                    </Map>
-
-                    {/* =================================================
-                        LEGEND
-                    ================================================= */}
-
-                    <div className="travel-map-legend">
-
-                        <div className="legend-title">
-                            MAP LEGEND
-                        </div>
-
-                        <div className="legend-item">
-                            <span className="legend-dot place" />
-                            Place
-                        </div>
-
-                        <div className="legend-item">
-                            <span className="legend-dot pilgrimage" />
-                            Pilgrimage
-                        </div>
-
-                        <div className="legend-item">
-                            <span className="legend-dot char-dham" />
-                            Char Dham
-                        </div>
-
-                        <div className="legend-item">
-                            <span className="legend-dot jyotirlinga" />
-                            Jyotirlinga
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            {/* =================================================
-                JOURNEY INFORMATION
-            ================================================= */}
-
-            {view === "journeys" && (
-
-                <section className="journey-section">
-
-                    <div className="journey-card">
-
-                        <div className="journey-card-top">
+                            <div className="planned-icon">
+                                ↗
+                            </div>
 
                             <div>
 
-                                <span className="journey-label">
-                                    MEMORABLE ROAD TRIP
+                                <span>
+                                    NEXT PLANNED JOURNEY
                                 </span>
 
-                                <h2>
-                                    Raipur → Maharashtra →
-                                    Gujarat → MP → Raipur
-                                </h2>
+                                <strong>
+                                    Pondicherry
+                                </strong>
 
                             </div>
 
-                            <div className="journey-distance">
-                                ROAD TRIP
+                            <div className="planned-status">
+                                PLANNED
                             </div>
 
                         </div>
 
-                        <p>
-                            A multi-day road journey covering
-                            Grishneshwar, Shirdi,
-                            Bhimashankar, Trimbakeshwar,
-                            Statue of Unity, Vadodara,
-                            Somnath, Dwarka, Nageshwar,
-                            Indore and Nagpur.
-                        </p>
+                    </section>
 
-                        <div className="journey-route-list">
+                )}
 
-                            {ROAD_TRIP
-                                .slice(0, -1)
-                                .map((place, index) => (
+                {/* =================================================
+                    ACHIEVEMENTS
+                ================================================= */}
 
-                                    <div
-                                        className="route-stop"
-                                        key={`${place.name}-${index}`}
-                                    >
+                <section className="travel-achievements">
 
-                                        <span>
-                                            {index + 1}
-                                        </span>
+                    <div className="achievement-card">
 
-                                        <div>
+                        <strong>
+                            10 / 12
+                        </strong>
 
-                                            <strong>
-                                                {place.name}
-                                            </strong>
-
-                                            <small>
-                                                {place.state}
-                                            </small>
-
-                                        </div>
-
-                                    </div>
-
-                                ))}
-
-                        </div>
+                        <span>
+                            JYOTIRLINGAS
+                        </span>
 
                     </div>
 
-                    {/* =================================================
-                        NEXT PLANNED JOURNEY
-                    ================================================= */}
+                    <div className="achievement-card">
 
-                    <div className="planned-journey">
+                        <strong>
+                            4 / 4
+                        </strong>
 
-                        <div className="planned-icon">
-                            ↗
-                        </div>
-
-                        <div>
-
-                            <span>
-                                NEXT PLANNED JOURNEY
-                            </span>
-
-                            <strong>
-                                Pondicherry
-                            </strong>
-
-                        </div>
-
-                        <div className="planned-status">
-                            PLANNED
-                        </div>
+                        <span>
+                            CHAR DHAM
+                        </span>
 
                     </div>
 
                 </section>
 
-            )}
-
-            {/* =================================================
-                ACHIEVEMENTS
-            ================================================= */}
-
-            <section className="travel-achievements">
-
-                <div className="achievement-card">
-
-                    <strong>
-                        10 / 12
-                    </strong>
-
-                    <span>
-                        JYOTIRLINGAS
-                    </span>
-
+                <div className="travel-footer-note">
+                    More places, journeys and memories will be added over time.
                 </div>
-
-                <div className="achievement-card">
-
-                    <strong>
-                        4 / 4
-                    </strong>
-
-                    <span>
-                        CHAR DHAM
-                    </span>
-
-                </div>
-
-            </section>
-
-            <div className="travel-footer-note">
-                More places, journeys and memories will be added over time.
-            </div>
 
             </div>
         </>
