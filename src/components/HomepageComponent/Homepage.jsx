@@ -8,6 +8,11 @@ import About from '../AboutComponent/About';
 import Achievemens from '../AchievementsComponent/Achievements';
 function Homepage() {
 
+  const scrollToSection = (event, sectionId) => {
+    event.preventDefault();
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   document.addEventListener('DOMContentLoaded', function() {
     // When the event DOMContentLoaded occurs, it is safe to access the DOM
     // When the user scrolls the page, execute myFunction 
@@ -55,13 +60,13 @@ function Homepage() {
 
     </div>
        <div className="header-home" id="header-home">
-           <a href="#about">
+             <a href="#about" onClick={(event) => scrollToSection(event, 'about')}>
                 About
             </a>
-            <a href="#projects">
+            <a href="#projects" onClick={(event) => scrollToSection(event, 'projects')}>
                 Projects
             </a>
-            <a href="#achievement">
+            <a href="#achievement" onClick={(event) => scrollToSection(event, 'achievement')}>
                 Achievement
             </a>
       </div> 

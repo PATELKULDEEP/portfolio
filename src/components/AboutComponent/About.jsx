@@ -7,7 +7,7 @@ function About() {
             <div className="about-resume">
 
             <img src={kpImg} alt="Kuldeep Image"  />
-            <button><a href="https://drive.google.com/file/d/14QCteZJ60XcYZ3TlesZD_9CIxPLfnoub/view?usp=sharing" alt="resume link" target="_blank" >Download Resume</a></button>
+            <button><a href="https://drive.google.com/file/d/1M7JEQNA6KsYdgwUrN8QtrZ3Zla7bGvvT/view?usp=drive_link" alt="resume link" target="_blank" >Download Resume</a></button>
 
             </div>
             <div className="about-details">

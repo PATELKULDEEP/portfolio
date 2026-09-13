@@ -1,0 +1,383 @@
+.travel {
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #1E2232;
+    color: aliceblue;
+    padding: 55px 20px 70px;
+    overflow: hidden;
+}
+
+/* -------------------------------- */
+/* Header                           */
+/* -------------------------------- */
+
+.travel-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.travel-eyebrow {
+    color: rgb(236, 221, 192);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin: 0 0 10px;
+}
+
+.travel-header h1 {
+    font-size: clamp(30px, 4vw, 46px);
+    margin: 0;
+    font-weight: 600;
+}
+
+.travel-subtitle {
+    max-width: 600px;
+    margin: 14px auto 0;
+    color: rgba(240, 248, 255, 0.65);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* -------------------------------- */
+/* Statistics                       */
+/* -------------------------------- */
+
+.travel-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35px auto 15px;
+    gap: 25px;
+}
+
+.travel-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+}
+
+.travel-stat-number {
+    color: rgb(236, 221, 192);
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.travel-stat-label {
+    margin-top: 3px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(240, 248, 255, 0.5);
+}
+
+.travel-stat-divider {
+    height: 28px;
+    width: 1px;
+    background-color: rgba(236, 221, 192, 0.25);
+}
+
+/* -------------------------------- */
+/* Map                             */
+/* -------------------------------- */
+
+.travel-map-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.travel-map-wrapper svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* India */
+.india-map {
+    fill: #292E42;
+    stroke: rgba(236, 221, 192, 0.65);
+    stroke-width: 0.65;
+    outline: none;
+    transition:
+        fill 0.25s ease,
+        stroke 0.25s ease;
+}
+
+.india-map:hover {
+    fill: #30364D;
+}
+
+/* -------------------------------- */
+/* Travel markers                   */
+/* -------------------------------- */
+
+.travel-marker {
+    fill: #F4A261;
+    stroke: #1E2232;
+    stroke-width: 2;
+    cursor: pointer;
+    transition:
+        r 0.2s ease,
+        fill 0.2s ease;
+}
+
+.travel-marker-active {
+    fill: #FFD166;
+}
+
+/* Tiny center point */
+.marker-core {
+    fill: #1E2232;
+    pointer-events: none;
+}
+
+/* Outer ring */
+.marker-pulse {
+    fill: none;
+    stroke: #F4A261;
+    stroke-width: 1.2;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.marker-pulse-active {
+    stroke: #FFD166;
+    opacity: 0.8;
+    animation: travel-pulse 1.5s ease-out infinite;
+}
+
+@keyframes travel-pulse {
+    0% {
+        opacity: 0.8;
+        r: 7;
+    }
+
+    70% {
+        opacity: 0;
+        r: 17;
+    }
+
+    100% {
+        opacity: 0;
+        r: 17;
+    }
+}
+
+/* -------------------------------- */
+/* Hover location label             */
+/* -------------------------------- */
+
+.marker-label {
+    pointer-events: none;
+}
+
+.marker-label rect {
+    fill: #1E2232;
+    stroke: rgba(236, 221, 192, 0.55);
+    stroke-width: 0.7;
+}
+
+.marker-label text {
+    fill: rgb(236, 221, 192);
+    font-size: 9px;
+    font-weight: 600;
+}
+
+/* -------------------------------- */
+/* Map controls                     */
+/* -------------------------------- */
+
+.map-controls {
+    position: absolute;
+    right: 20px;
+    bottom: 55px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.map-controls button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(236, 221, 192, 0.25);
+    border-radius: 8px;
+    background-color: rgba(30, 34, 50, 0.9);
+    color: rgb(236, 221, 192);
+    font-size: 20px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.map-controls button:hover {
+    background-color: #292E42;
+    border-color: rgb(236, 221, 192);
+    transform: translateY(-1px);
+}
+
+.map-controls .reset-button {
+    margin-top: 4px;
+    font-size: 18px;
+}
+
+/* -------------------------------- */
+/* Map hint                         */
+/* -------------------------------- */
+
+.map-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    padding: 7px 14px;
+    border-radius: 20px;
+    background-color: rgba(30, 34, 50, 0.85);
+    border: 1px solid rgba(236, 221, 192, 0.12);
+    color: rgba(240, 248, 255, 0.45);
+    font-size: 10px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* -------------------------------- */
+/* Selected location card           */
+/* -------------------------------- */
+
+.travel-location-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    min-width: 280px;
+    max-width: calc(100vw - 40px);
+    margin: -5px auto 0;
+    padding: 14px 18px;
+    border: 1px solid rgba(236, 221, 192, 0.25);
+    border-radius: 12px;
+    background-color: #292E42;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    animation: location-card-in 0.25s ease-out;
+}
+
+@keyframes location-card-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.location-card-indicator {
+    width: 4px;
+    height: 42px;
+    margin-right: 15px;
+    border-radius: 5px;
+    background-color: #F4A261;
+}
+
+.location-card-content {
+    text-align: left;
+}
+
+.location-card-category {
+    color: #F4A261;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.location-card-content h2 {
+    margin: 3px 0 1px;
+    color: aliceblue;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.location-card-content p {
+    margin: 0;
+    color: rgba(240, 248, 255, 0.5);
+    font-size: 12px;
+}
+
+.location-card-close {
+    align-self: flex-start;
+    margin-left: 25px;
+    border: none;
+    background: transparent;
+    color: rgba(240, 248, 255, 0.45);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.location-card-close:hover {
+    color: rgb(236, 221, 192);
+}
+
+/* -------------------------------- */
+/* Mobile                           */
+/* -------------------------------- */
+
+@media (max-width: 750px) {
+
+    .travel {
+        padding: 35px 10px 50px;
+    }
+
+    .travel-header h1 {
+        font-size: 32px;
+    }
+
+    .travel-subtitle {
+        font-size: 13px;
+        max-width: 90%;
+    }
+
+    .travel-stats {
+        gap: 15px;
+        margin-top: 28px;
+    }
+
+    .travel-stat-number {
+        font-size: 19px;
+    }
+
+    .travel-stat-label {
+        font-size: 9px;
+    }
+
+    .travel-map-wrapper {
+        margin-top: 5px;
+    }
+
+    .map-controls {
+        right: 8px;
+        bottom: 50px;
+    }
+
+    .map-controls button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .map-hint {
+        bottom: 12px;
+        font-size: 8px;
+    }
+
+    .travel-location-card {
+        min-width: 0;
+        width: calc(100% - 30px);
+    }
+}

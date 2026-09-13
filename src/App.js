@@ -1,10 +1,10 @@
 import React from "react";
 import Homepage from "./components/HomepageComponent/Homepage";
-import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/HeaderComponent/Header";
 import Footer from "./components/FooterComponent/Footer";
 import FullProjects from "./components/ProjectsComponent/FullProjects";
-import MainContact from "./components/ContactComponent/MainContact";
+import Travel from "./components/TravelComponent/Travel";
 import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
 import MainAchievements from "./components/AchievementsComponent/MainAchievements";
@@ -17,9 +17,11 @@ function App() {
 
       {/* <Header/> */}
         <Switch>
+          <Route exact path="/" component={Homepage} />
             <Route exact path="/portfolio" component={Homepage} />
             <Route exact path="/portfolio/projects" component={FullProjects} />
             <Route exact path="/portfolio/achievements" component={MainAchievements} />
+            <Route exact path="/portfolio/travel" component={Travel} />
         </Switch>
         <Footer/>
       </ScrollToTop>
