@@ -34,34 +34,6 @@
     text-align: center;
 }
 
-.travel-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    margin-bottom: 12px;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 2px;
-
-    color: #9299ad;
-}
-
-.travel-eyebrow-dot {
-    width: 7px;
-    height: 7px;
-
-    border-radius: 50%;
-
-    background: #e5b85c;
-
-    box-shadow:
-        0 0 0 5px rgba(229, 184, 92, 0.1),
-        0 0 12px rgba(229, 184, 92, 0.55);
-}
-
 .travel-header h1 {
     margin: 0;
 
@@ -110,7 +82,8 @@
 
     padding: 0 35px;
 
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    border-right:
+        1px solid rgba(255, 255, 255, 0.15);
 }
 
 .travel-stat:last-child {
@@ -157,9 +130,11 @@
 
     border-radius: 30px;
 
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border:
+        1px solid rgba(255, 255, 255, 0.14);
 
-    background: rgba(8, 10, 17, 0.55);
+    background:
+        rgba(8, 10, 17, 0.55);
 
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.2);
@@ -215,7 +190,8 @@
 
     border-radius: 24px;
 
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    border:
+        1px solid rgba(255, 255, 255, 0.16);
 
     background: #11141d;
 
@@ -243,7 +219,8 @@
 
     background: #11141d;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
 }
 
 .travel-map-title {
@@ -287,17 +264,23 @@
 
     width: 100%;
 
-    height: min(70vh, 760px);
+    /*
+     * Give MapLibre a strong, predictable height.
+     */
+    height: min(72vh, 780px);
 
-    min-height: 520px;
+    min-height: 560px;
 
-    background: #151923;
+    /*
+     * Neutral fallback while map tiles load.
+     */
+    background:
+        #e8e5dc;
 }
 
 
 /*
- * IMPORTANT:
- * MapLibre needs its container to have a real height.
+ * MapLibre container must have real dimensions.
  */
 
 .travel-map .maplibregl-map {
@@ -322,9 +305,11 @@
 .travel-map .maplibregl-ctrl-group {
     overflow: hidden;
 
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    border:
+        1px solid rgba(255, 255, 255, 0.18);
 
-    background: rgba(20, 24, 34, 0.9);
+    background:
+        rgba(20, 24, 34, 0.92);
 
     box-shadow:
         0 8px 25px rgba(0, 0, 0, 0.25);
@@ -335,7 +320,26 @@
 }
 
 .travel-map .maplibregl-ctrl-group button:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color:
+        rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   MAP ATTRIBUTION
+========================================================= */
+
+.travel-map .maplibregl-ctrl-attrib {
+    background:
+        rgba(20, 24, 34, 0.78);
+
+    color: #858ca0;
+
+    border-radius: 5px;
+}
+
+.travel-map .maplibregl-ctrl-attrib a {
+    color: #b9aa83;
 }
 
 
@@ -347,6 +351,7 @@
     position: absolute;
 
     left: 20px;
+
     bottom: 20px;
 
     z-index: 10;
@@ -357,9 +362,11 @@
 
     border-radius: 14px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid rgba(255, 255, 255, 0.12);
 
-    background: rgba(20, 23, 32, 0.92);
+    background:
+        rgba(20, 23, 32, 0.92);
 
     backdrop-filter: blur(12px);
 
@@ -431,7 +438,8 @@
 
     padding: 0;
 
-    border: 2px solid rgba(255, 255, 255, 0.85);
+    border:
+        2px solid rgba(255, 255, 255, 0.9);
 
     border-radius: 50%;
 
@@ -440,8 +448,8 @@
     background: #e5a454;
 
     box-shadow:
-        0 0 0 4px rgba(229, 164, 84, 0.14),
-        0 0 18px rgba(229, 164, 84, 0.45);
+        0 0 0 4px rgba(229, 164, 84, 0.16),
+        0 0 18px rgba(229, 164, 84, 0.55);
 
     transition:
         transform 0.2s ease,
@@ -454,8 +462,8 @@
     z-index: 20;
 
     box-shadow:
-        0 0 0 7px rgba(229, 164, 84, 0.13),
-        0 0 30px rgba(229, 164, 84, 0.7);
+        0 0 0 7px rgba(229, 164, 84, 0.16),
+        0 0 30px rgba(229, 164, 84, 0.8);
 }
 
 .marker-core {
@@ -467,7 +475,8 @@
     top: 50%;
     left: 50%;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
 
     border-radius: 50%;
 
@@ -475,30 +484,32 @@
 }
 
 
-/* marker categories */
+/* =========================================================
+   MARKER CATEGORIES
+========================================================= */
 
 .travel-marker.pilgrimage {
     background: #61c7ad;
 
     box-shadow:
-        0 0 0 4px rgba(97, 199, 173, 0.14),
-        0 0 18px rgba(97, 199, 173, 0.45);
+        0 0 0 4px rgba(97, 199, 173, 0.16),
+        0 0 18px rgba(97, 199, 173, 0.55);
 }
 
 .travel-marker.char-dham {
     background: #e5c25c;
 
     box-shadow:
-        0 0 0 4px rgba(229, 194, 92, 0.14),
-        0 0 18px rgba(229, 194, 92, 0.45);
+        0 0 0 4px rgba(229, 194, 92, 0.16),
+        0 0 18px rgba(229, 194, 92, 0.55);
 }
 
 .travel-marker.jyotirlinga {
     background: #b38ce6;
 
     box-shadow:
-        0 0 0 4px rgba(179, 140, 230, 0.14),
-        0 0 18px rgba(179, 140, 230, 0.5);
+        0 0 0 4px rgba(179, 140, 230, 0.16),
+        0 0 18px rgba(179, 140, 230, 0.6);
 }
 
 
@@ -525,9 +536,11 @@
 
     border-radius: 9px;
 
-    background: rgba(15, 18, 27, 0.96);
+    background:
+        rgba(15, 18, 27, 0.97);
 
-    border: 1px solid rgba(255, 255, 255, 0.13);
+    border:
+        1px solid rgba(255, 255, 255, 0.13);
 
     box-shadow:
         0 12px 30px rgba(0, 0, 0, 0.4);
@@ -585,7 +598,8 @@
 
     color: #fff !important;
 
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border:
+        1px solid rgba(255, 255, 255, 0.1);
 
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.45);
@@ -626,25 +640,29 @@
 
     text-transform: uppercase;
 
-    background: rgba(229, 164, 84, 0.14);
+    background:
+        rgba(229, 164, 84, 0.14);
 
     color: #e5a454;
 }
 
 .popup-type.pilgrimage {
-    background: rgba(97, 199, 173, 0.14);
+    background:
+        rgba(97, 199, 173, 0.14);
 
     color: #61c7ad;
 }
 
 .popup-type.char-dham {
-    background: rgba(229, 194, 92, 0.14);
+    background:
+        rgba(229, 194, 92, 0.14);
 
     color: #e5c25c;
 }
 
 .popup-type.jyotirlinga {
-    background: rgba(179, 140, 230, 0.14);
+    background:
+        rgba(179, 140, 230, 0.14);
 
     color: #b38ce6;
 }
@@ -670,7 +688,8 @@
 
     padding-top: 10px;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top:
+        1px solid rgba(255, 255, 255, 0.1);
 
     color: #d7c99f;
 
@@ -712,6 +731,9 @@
         0 0 20px rgba(234, 217, 177, 0.45);
 
     z-index: 4;
+
+    transition:
+        transform 0.2s ease;
 }
 
 .journey-marker:hover {
@@ -735,9 +757,11 @@
 
     border-radius: 9px;
 
-    background: rgba(15, 18, 27, 0.96);
+    background:
+        rgba(15, 18, 27, 0.97);
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid rgba(255, 255, 255, 0.12);
 
     opacity: 0;
 
@@ -790,7 +814,8 @@
 
     background: #151923;
 
-    border: 1px solid rgba(255, 255, 255, 0.11);
+    border:
+        1px solid rgba(255, 255, 255, 0.11);
 
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.2);
@@ -821,7 +846,8 @@
 
     color: #eee9dc;
 
-    font-size: clamp(20px, 3vw, 30px);
+    font-size:
+        clamp(20px, 3vw, 30px);
 
     font-weight: 500;
 }
@@ -835,9 +861,11 @@
 
     color: #e5b85c;
 
-    background: rgba(229, 184, 92, 0.08);
+    background:
+        rgba(229, 184, 92, 0.08);
 
-    border: 1px solid rgba(229, 184, 92, 0.25);
+    border:
+        1px solid rgba(229, 184, 92, 0.25);
 
     font-size: 9px;
 
@@ -882,9 +910,11 @@
 
     border-radius: 10px;
 
-    background: rgba(255, 255, 255, 0.035);
+    background:
+        rgba(255, 255, 255, 0.035);
 
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border:
+        1px solid rgba(255, 255, 255, 0.07);
 }
 
 .route-stop > span {
@@ -943,9 +973,11 @@
 
     border-radius: 17px;
 
-    border: 1px dashed rgba(234, 217, 177, 0.28);
+    border:
+        1px dashed rgba(234, 217, 177, 0.28);
 
-    background: rgba(234, 217, 177, 0.035);
+    background:
+        rgba(234, 217, 177, 0.035);
 }
 
 .planned-icon {
@@ -961,7 +993,8 @@
 
     color: #e5b85c;
 
-    background: rgba(234, 217, 177, 0.06);
+    background:
+        rgba(234, 217, 177, 0.06);
 
     font-size: 22px;
 }
@@ -1001,7 +1034,8 @@
 
     color: #e5b85c;
 
-    border: 1px solid rgba(229, 184, 92, 0.25);
+    border:
+        1px solid rgba(229, 184, 92, 0.25);
 
     font-size: 9px;
 
@@ -1022,9 +1056,11 @@
 
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+        repeat(2, 1fr);
 
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border:
+        1px solid rgba(255, 255, 255, 0.1);
 
     border-radius: 15px;
 
@@ -1038,7 +1074,8 @@
 
     text-align: center;
 
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right:
+        1px solid rgba(255, 255, 255, 0.1);
 }
 
 .achievement-card:last-child {
@@ -1141,13 +1178,14 @@
     }
 
     .travel-map {
-        height: 68vh;
+        height: 70vh;
 
         min-height: 500px;
     }
 
     .travel-map-legend {
         left: 10px;
+
         bottom: 10px;
 
         padding: 11px 12px;
@@ -1157,6 +1195,11 @@
 
     .legend-item {
         font-size: 10px;
+    }
+
+    .travel-marker {
+        width: 22px;
+        height: 22px;
     }
 
     .journey-card {
@@ -1240,7 +1283,8 @@
     .travel-map-legend {
         transform: scale(0.9);
 
-        transform-origin: bottom left;
+        transform-origin:
+            bottom left;
     }
 
 }

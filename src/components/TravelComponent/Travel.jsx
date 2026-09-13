@@ -17,15 +17,20 @@ import "./TravelStyle.css";
    MAP CONFIG
 ========================================================= */
 
-const MAP_STYLE = "https://tiles.openfreemap.org/styles/dark";
+/*
+ * IMPORTANT:
+ * We intentionally use a light geographic base map.
+ *
+ * The PAGE remains dark, but the actual map needs contrast
+ * so India, states, roads and geography remain visible.
+ */
+const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
-const INDIA_STATES = `${process.env.PUBLIC_URL}/maps/india-states-simplified.geojson`;
+const INDIA_STATES =
+    `${process.env.PUBLIC_URL}/maps/india-states-simplified.geojson`;
 
 /*
- * India viewport.
- *
- * maxBounds prevents the map from wandering too far away
- * and becoming an empty screen after zooming/panning.
+ * Keep the user inside/around India.
  */
 const INDIA_BOUNDS = [
     [66, 5],
@@ -37,7 +42,7 @@ const INDIA_BOUNDS = [
 ========================================================= */
 
 const PLACES = [
-    /* ---------- MAJOR CITIES / PLACES ---------- */
+    /* ---------- MAJOR PLACES ---------- */
 
     {
         name: "Mumbai",
@@ -182,7 +187,7 @@ const PLACES = [
         coordinates: [73.1812, 22.3072],
     },
 
-    /* ---------- PILGRIMAGE ---------- */
+    /* ---------- CHAR DHAM ---------- */
 
     {
         name: "Yamunotri",
@@ -209,6 +214,9 @@ const PLACES = [
         type: "charDham",
         coordinates: [79.4938, 30.7433],
     },
+
+    /* ---------- JYOTIRLINGAS ---------- */
+
     {
         name: "Mallikarjuna",
         state: "Andhra Pradesh",
@@ -246,7 +254,7 @@ const PLACES = [
         coordinates: [75.4777, 20.0268],
     },
 
-    /* ---------- SHIRDI ---------- */
+    /* ---------- OTHER PILGRIMAGE ---------- */
 
     {
         name: "Shirdi",
@@ -266,7 +274,7 @@ const PLACES = [
 ];
 
 /* =========================================================
-   JOURNEY
+   MEMORABLE ROAD TRIP
 ========================================================= */
 
 const ROAD_TRIP = [
@@ -337,26 +345,36 @@ const ROAD_TRIP = [
     },
 ];
 
-/* Convert journey points into GeoJSON line */
-
 const ROAD_TRIP_LINE = {
     type: "Feature",
     geometry: {
         type: "LineString",
-        coordinates: ROAD_TRIP.map((place) => place.coordinates),
+        coordinates: ROAD_TRIP.map(
+            (place) => place.coordinates
+        ),
     },
 };
 
 /* =========================================================
-   LAYERS
+   INDIA STATE LAYERS
 ========================================================= */
+
+/*
+ * Very subtle fill.
+ *
+ * The previous version used a relatively dark fill with
+ * 55% opacity. That effectively covered the underlying map.
+ *
+ * Now the map remains visible and the state boundaries
+ * provide the visual separation.
+ */
 
 const stateFillLayer = {
     id: "india-state-fill",
     type: "fill",
     paint: {
-        "fill-color": "#252A3B",
-        "fill-opacity": 0.55,
+        "fill-color": "#d9c69a",
+        "fill-opacity": 0.045,
     },
 };
 
@@ -364,25 +382,31 @@ const stateBorderLayer = {
     id: "india-state-border",
     type: "line",
     paint: {
-        "line-color": "#777E96",
+        "line-color": "#8f8062",
         "line-width": [
             "interpolate",
             ["linear"],
             ["zoom"],
             3,
-            0.7,
+            1,
             5,
-            1.2,
+            1.5,
             7,
-            1.8,
+            2,
+            9,
+            2.5,
         ],
-        "line-opacity": 0.75,
+        "line-opacity": 0.72,
     },
 };
 
+/*
+ * State names become progressively stronger as you zoom.
+ */
 const stateLabelLayer = {
     id: "india-state-labels",
     type: "symbol",
+
     layout: {
         "text-field": [
             "coalesce",
@@ -393,46 +417,80 @@ const stateLabelLayer = {
             ["get", "name"],
             "",
         ],
+
         "text-size": [
             "interpolate",
             ["linear"],
             ["zoom"],
             3,
-            9,
-            5,
-            11,
-            7,
+            8,
+            4.5,
+            10,
+            6,
+            12,
+            8,
             13,
         ],
-        "text-font": ["Open Sans Regular"],
+
+        "text-font": [
+            "Open Sans Regular",
+        ],
+
         "text-allow-overlap": false,
         "text-ignore-placement": false,
         "symbol-placement": "point",
     },
+
     paint: {
-        "text-color": "#AAB1C5",
-        "text-halo-color": "#171A25",
+        "text-color": "#5c5547",
+        "text-halo-color": "#f4f0e6",
         "text-halo-width": 1.5,
+
         "text-opacity": [
             "interpolate",
             ["linear"],
             ["zoom"],
             3,
-            0.65,
+            0.35,
             4,
+            0.7,
+            5,
             0.9,
         ],
     },
 };
 
+/* =========================================================
+   ROAD TRIP LAYER
+========================================================= */
+
 const roadTripLineLayer = {
     id: "road-trip-line",
     type: "line",
+
     paint: {
-        "line-color": "#E5B85C",
-        "line-width": 4,
-        "line-opacity": 0.95,
-        "line-dasharray": [1, 1.5],
+        "line-color": "#D49A45",
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            3,
+            2.5,
+            5,
+            4,
+            8,
+            5,
+        ],
+
+        "line-opacity": 0.9,
+
+        "line-dasharray": [
+            1,
+            1.5,
+        ],
+
+        "line-cap": "round",
+        "line-join": "round",
     },
 };
 
@@ -478,7 +536,8 @@ const getTypeClass = (place) => {
 
 const Travel = () => {
     const [view, setView] = useState("places");
-    const [selectedPlace, setSelectedPlace] = useState(null);
+    const [selectedPlace, setSelectedPlace] =
+        useState(null);
 
     const placesCount = 33;
     const statesCount = 14;
@@ -496,32 +555,36 @@ const Travel = () => {
 
             <section className="travel-header">
 
-                <div className="travel-eyebrow">
-                    <span className="travel-eyebrow-dot" />
-                    PERSONAL TRAVEL MAP
-                </div>
-
                 <h1>
-                    Places I've <span>explored</span>
+                    Places I've{" "}
+                    <span>explored</span>
                 </h1>
 
                 <p>
-                    A visual collection of the places, pilgrimages
-                    and journeys I've experienced.
+                    A visual collection of the places,
+                    pilgrimages and journeys I've experienced.
                 </p>
-
-                {/* TOP STATS */}
 
                 <div className="travel-stats">
 
                     <div className="travel-stat">
-                        <strong>{placesCount}+</strong>
-                        <span>PLACES</span>
+                        <strong>
+                            {placesCount}+
+                        </strong>
+
+                        <span>
+                            PLACES
+                        </span>
                     </div>
 
                     <div className="travel-stat">
-                        <strong>{statesCount}</strong>
-                        <span>STATES / UTs</span>
+                        <strong>
+                            {statesCount}
+                        </strong>
+
+                        <span>
+                            STATES / UTs
+                        </span>
                     </div>
 
                 </div>
@@ -535,7 +598,11 @@ const Travel = () => {
             <div className="travel-toggle">
 
                 <button
-                    className={view === "places" ? "active" : ""}
+                    className={
+                        view === "places"
+                            ? "active"
+                            : ""
+                    }
                     onClick={() => {
                         setView("places");
                         setSelectedPlace(null);
@@ -545,7 +612,11 @@ const Travel = () => {
                 </button>
 
                 <button
-                    className={view === "journeys" ? "active" : ""}
+                    className={
+                        view === "journeys"
+                            ? "active"
+                            : ""
+                    }
                     onClick={() => {
                         setView("journeys");
                         setSelectedPlace(null);
@@ -565,17 +636,21 @@ const Travel = () => {
                 <div className="travel-map-header">
 
                     <div className="travel-map-title">
+
                         <span className="travel-live-dot" />
 
                         {view === "places"
                             ? "Places I've explored"
                             : "Follow my journeys"}
+
                     </div>
 
                     <div className="travel-map-hint">
+
                         {view === "places"
                             ? "Hover a marker • Click for details"
-                            : "A memorable road trip"}
+                            : "Follow the route"}
+
                     </div>
 
                 </div>
@@ -613,7 +688,7 @@ const Travel = () => {
                     >
 
                         {/* =================================================
-                            STATE BOUNDARIES
+                            INDIA STATES
                         ================================================= */}
 
                         <Source
@@ -622,16 +697,22 @@ const Travel = () => {
                             data={INDIA_STATES}
                         >
 
-                            <Layer {...stateFillLayer} />
+                            <Layer
+                                {...stateFillLayer}
+                            />
 
-                            <Layer {...stateBorderLayer} />
+                            <Layer
+                                {...stateBorderLayer}
+                            />
 
-                            <Layer {...stateLabelLayer} />
+                            <Layer
+                                {...stateLabelLayer}
+                            />
 
                         </Source>
 
                         {/* =================================================
-                            PLACES VIEW
+                            PLACES
                         ================================================= */}
 
                         {view === "places" &&
@@ -639,18 +720,28 @@ const Travel = () => {
 
                                 <Marker
                                     key={`${place.name}-${place.state}`}
-                                    longitude={place.coordinates[0]}
-                                    latitude={place.coordinates[1]}
+                                    longitude={
+                                        place.coordinates[0]
+                                    }
+                                    latitude={
+                                        place.coordinates[1]
+                                    }
                                     anchor="center"
                                 >
 
                                     <button
                                         type="button"
-                                        className={`travel-marker ${getTypeClass(place)}`}
+                                        className={`travel-marker ${getTypeClass(
+                                            place
+                                        )}`}
                                         onClick={() =>
-                                            handleMarkerClick(place)
+                                            handleMarkerClick(
+                                                place
+                                            )
                                         }
-                                        aria-label={place.name}
+                                        aria-label={
+                                            place.name
+                                        }
                                     >
 
                                         <span className="marker-core" />
@@ -674,11 +765,10 @@ const Travel = () => {
                             ))}
 
                         {/* =================================================
-                            JOURNEY VIEW
+                            JOURNEY
                         ================================================= */}
 
                         {view === "journeys" && (
-
                             <>
 
                                 <Source
@@ -687,7 +777,9 @@ const Travel = () => {
                                     data={ROAD_TRIP_LINE}
                                 >
 
-                                    <Layer {...roadTripLineLayer} />
+                                    <Layer
+                                        {...roadTripLineLayer}
+                                    />
 
                                 </Source>
 
@@ -731,71 +823,75 @@ const Travel = () => {
                                 )}
 
                             </>
-
                         )}
 
                         {/* =================================================
                             POPUP
                         ================================================= */}
 
-                        {selectedPlace && view === "places" && (
+                        {selectedPlace &&
+                            view === "places" && (
 
-                            <Popup
-                                longitude={
-                                    selectedPlace.coordinates[0]
-                                }
-                                latitude={
-                                    selectedPlace.coordinates[1]
-                                }
-                                anchor="bottom"
-                                closeOnClick={false}
-                                closeOnMove={false}
-                                onClose={() =>
-                                    setSelectedPlace(null)
-                                }
-                                maxWidth="260px"
-                            >
+                                <Popup
+                                    longitude={
+                                        selectedPlace
+                                            .coordinates[0]
+                                    }
+                                    latitude={
+                                        selectedPlace
+                                            .coordinates[1]
+                                    }
+                                    anchor="bottom"
+                                    closeOnClick={false}
+                                    closeOnMove={false}
+                                    onClose={() =>
+                                        setSelectedPlace(null)
+                                    }
+                                    maxWidth="260px"
+                                >
 
-                                <div className="place-popup">
+                                    <div className="place-popup">
 
-                                    <div
-                                        className={`popup-type ${getTypeClass(
-                                            selectedPlace
-                                        )}`}
-                                    >
-                                        {getTypeLabel(selectedPlace)}
+                                        <div
+                                            className={`popup-type ${getTypeClass(
+                                                selectedPlace
+                                            )}`}
+                                        >
+                                            {getTypeLabel(
+                                                selectedPlace
+                                            )}
+                                        </div>
+
+                                        <h3>
+                                            {selectedPlace.name}
+                                        </h3>
+
+                                        <p>
+                                            {selectedPlace.state}
+                                        </p>
+
+                                        {selectedPlace.jyotirlinga && (
+                                            <div className="popup-badge">
+                                                ✦ One of the 10
+                                                Jyotirlingas visited
+                                            </div>
+                                        )}
+
+                                        {selectedPlace.type ===
+                                            "charDham" && (
+                                            <div className="popup-badge">
+                                                ✦ Part of the Char Dham
+                                            </div>
+                                        )}
+
                                     </div>
 
-                                    <h3>
-                                        {selectedPlace.name}
-                                    </h3>
+                                </Popup>
 
-                                    <p>
-                                        {selectedPlace.state}
-                                    </p>
-
-                                    {selectedPlace.jyotirlinga && (
-                                        <div className="popup-badge">
-                                            ✦ One of the 10
-                                            Jyotirlingas visited
-                                        </div>
-                                    )}
-
-                                    {selectedPlace.type ===
-                                        "charDham" && (
-                                        <div className="popup-badge">
-                                            ✦ Part of the Char Dham
-                                        </div>
-                                    )}
-
-                                </div>
-
-                            </Popup>
-
-                        )}
+                            )}
 
                         {/* =================================================
-                            MAP CONTROLS
+                            CONTROLS
                         ================================================= */}
 
                         <NavigationControl
@@ -814,7 +910,7 @@ const Travel = () => {
                     </Map>
 
                     {/* =================================================
-                        MAP LEGEND
+                        LEGEND
                     ================================================= */}
 
                     <div className="travel-map-legend">
@@ -882,16 +978,18 @@ const Travel = () => {
 
                         <p>
                             A multi-day road journey covering
-                            Grishneshwar, Shirdi, Bhimashankar,
-                            Trimbakeshwar, Statue of Unity,
-                            Vadodara, Somnath, Dwarka, Nageshwar,
+                            Grishneshwar, Shirdi,
+                            Bhimashankar, Trimbakeshwar,
+                            Statue of Unity, Vadodara,
+                            Somnath, Dwarka, Nageshwar,
                             Indore and Nagpur.
                         </p>
 
                         <div className="journey-route-list">
 
-                            {ROAD_TRIP.slice(0, -1).map(
-                                (place, index) => (
+                            {ROAD_TRIP
+                                .slice(0, -1)
+                                .map((place, index) => (
 
                                     <div
                                         className="route-stop"
@@ -903,6 +1001,7 @@ const Travel = () => {
                                         </span>
 
                                         <div>
+
                                             <strong>
                                                 {place.name}
                                             </strong>
@@ -910,18 +1009,20 @@ const Travel = () => {
                                             <small>
                                                 {place.state}
                                             </small>
+
                                         </div>
 
                                     </div>
 
-                                )
-                            )}
+                                ))}
 
                         </div>
 
                     </div>
 
-                    {/* NEXT JOURNEY */}
+                    {/* =================================================
+                        NEXT PLANNED JOURNEY
+                    ================================================= */}
 
                     <div className="planned-journey">
 
@@ -959,7 +1060,9 @@ const Travel = () => {
 
                 <div className="achievement-card">
 
-                    <strong>10 / 12</strong>
+                    <strong>
+                        10 / 12
+                    </strong>
 
                     <span>
                         JYOTIRLINGAS
@@ -969,7 +1072,9 @@ const Travel = () => {
 
                 <div className="achievement-card">
 
-                    <strong>4 / 4</strong>
+                    <strong>
+                        4 / 4
+                    </strong>
 
                     <span>
                         CHAR DHAM
