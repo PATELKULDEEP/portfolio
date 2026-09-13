@@ -133,21 +133,21 @@ const PLACES = [
     {
         name: "Prayagraj",
         state: "Uttar Pradesh",
-        type: "place",
+        type: "pilgrimage",
         coordinates: [81.8463, 25.4358],
     },
 
     {
         name: "Puri",
         state: "Odisha",
-        type: "place",
+        type: "pilgrimage",
         coordinates: [85.8315, 19.8135],
     },
 
     {
         name: "Bhubaneswar",
         state: "Odisha",
-        type: "place",
+        type: "pilgrimage",
         coordinates: [85.8245, 20.2961],
     },
 
@@ -166,6 +166,13 @@ const PLACES = [
     },
 
     {
+        name: "Rajim",
+        state: "Chhattisgarh",
+        type: "pilgrimage",
+        coordinates: [81.8796, 20.9617],
+    },
+
+    {
         name: "Bastar",
         state: "Chhattisgarh",
         type: "place",
@@ -175,7 +182,7 @@ const PLACES = [
     {
         name: "Amarkantak",
         state: "Madhya Pradesh",
-        type: "place",
+        type: "pilgrimage",
         coordinates: [81.7597, 22.674],
     },
 
@@ -203,14 +210,14 @@ const PLACES = [
     {
         name: "Kanyakumari",
         state: "Tamil Nadu",
-        type: "place",
+        type: "pilgrimage",
         coordinates: [77.5385, 8.0883],
     },
 
     {
         name: "Rameshwaram",
         state: "Tamil Nadu",
-        type: "place",
+        type: "pilgrimage",
         jyotirlinga: true,
         coordinates: [79.3129, 9.2876],
     },
@@ -218,7 +225,7 @@ const PLACES = [
     {
         name: "Madurai",
         state: "Tamil Nadu",
-        type: "place",
+        type: "pilgrimage",
         coordinates: [78.1198, 9.9252],
     },
 
@@ -462,6 +469,72 @@ const ROAD_TRIP_LINE = {
     },
 };
 
+const TRAVEL_TIMELINE = [
+    {
+        year: "1998",
+        date: "December",
+        title: "Where it all began",
+        description: "Born in Rajim, Chhattisgarh, at the confluence of three rivers.",
+        stops: ["Rajim"],
+        origin: true,
+    },
+    {
+        year: "2019",
+        title: "First city escape",
+        description: "Mumbai was the beginning of the travel story.",
+        stops: ["Mumbai"],
+    },
+    {
+        year: "2020",
+        title: "Mountains calling",
+        description: "A first visit to the mountain landscapes of Manali.",
+        stops: ["Manali"],
+    },
+    {
+        year: "2021",
+        title: "Sacred confluence",
+        description: "Prayagraj became the journey's next meaningful stop.",
+        stops: ["Prayagraj"],
+    },
+    {
+        year: "2022",
+        title: "Temple towns of Odisha",
+        description: "Puri and Bhubaneswar in one memorable coastal journey.",
+        stops: ["Puri", "Bhubaneswar"],
+    },
+    {
+        year: "2023",
+        title: "The southern coast",
+        description: "A wide southern circuit from Bengaluru to Dhanushkodi.",
+        stops: [
+            "Rameshwaram",
+            "Kanyakumari",
+            "Dhanushkodi",
+            "Madurai",
+            "Bengaluru",
+        ],
+    },
+    {
+        year: "2024",
+        title: "Char Dham pilgrimage",
+        description: "A pilgrimage through Kedarnath, Badrinath, Yamunotri and Gangotri.",
+        stops: ["Kedarnath", "Badrinath", "Yamunotri", "Gangotri"],
+    },
+    {
+        year: "2025",
+        title: "Western India road trip",
+        description: "A multi-day road journey through Maharashtra, Gujarat and Madhya Pradesh.",
+        stops: ROAD_TRIP.map((place) => place.name),
+        featured: true,
+    },
+    {
+        year: "2026",
+        title: "Kerala and the hills",
+        description: "Varkala and Kodaikanal are next on the map.",
+        stops: ["Varkala", "Kodaikanal"],
+    },
+];
+
 /* =========================================================
    STATE LAYERS
 ========================================================= */
@@ -701,16 +774,50 @@ const Travel = () => {
 
     const [view, setView] = useState("places");
 
-    const [roadTripRoute, setRoadTripRoute] =
-        useState(ROAD_TRIP_LINE);
+    const [selectedTimelineYear, setSelectedTimelineYear] =
+        useState("2025");
 
     const [selectedPlace, setSelectedPlace] =
         useState(null);
 
+    const [selectedJourneyStop, setSelectedJourneyStop] =
+        useState(null);
+
+    const selectedTimeline = TRAVEL_TIMELINE.find(
+        (journey) => journey.year === selectedTimelineYear
+    );
+
+    const selectedTimelinePlaces = selectedTimeline.stops
+        .map((name) => PLACES.find((place) => place.name === name))
+        .filter(Boolean);
+
+    const selectedJourneyPlaces = selectedTimeline.featured
+        ? ROAD_TRIP
+        : selectedTimelinePlaces;
+
+    const [journeyRoute, setJourneyRoute] =
+        useState(ROAD_TRIP_LINE);
+
     useEffect(() => {
-        const routeCoordinates = ROAD_TRIP.map(
+        const routeCoordinates = selectedJourneyPlaces.map(
             (place) => place.coordinates.join(",")
         ).join(";");
+
+        const fallbackRoute = {
+            type: "Feature",
+            geometry: {
+                type: "LineString",
+                coordinates: selectedJourneyPlaces.map(
+                    (place) => place.coordinates
+                ),
+            },
+        };
+
+        setJourneyRoute(fallbackRoute);
+
+        if (selectedJourneyPlaces.length < 2) {
+            return;
+        }
 
         fetch(
             `https://router.project-osrm.org/route/v1/driving/${routeCoordinates}?overview=full&geometries=geojson`
@@ -726,7 +833,7 @@ const Travel = () => {
                 const routeGeometry = data.routes?.[0]?.geometry;
 
                 if (routeGeometry) {
-                    setRoadTripRoute({
+                    setJourneyRoute({
                         type: "Feature",
                         geometry: routeGeometry,
                     });
@@ -734,7 +841,43 @@ const Travel = () => {
             })
             .catch(() => {
             });
-    }, []);
+    }, [selectedTimelineYear]);
+
+    useEffect(() => {
+        if (!mapRef.current || view !== "journeys") {
+            return;
+        }
+
+        const coordinates = selectedJourneyPlaces.map(
+            (place) => place.coordinates
+        );
+
+        if (coordinates.length === 1) {
+            mapRef.current.flyTo({
+                center: coordinates[0],
+                zoom: 5.5,
+                duration: 900,
+            });
+            return;
+        }
+
+        if (coordinates.length > 1) {
+            const longitudes = coordinates.map(([longitude]) => longitude);
+            const latitudes = coordinates.map(([, latitude]) => latitude);
+
+            mapRef.current.fitBounds(
+                [
+                    [Math.min(...longitudes), Math.min(...latitudes)],
+                    [Math.max(...longitudes), Math.max(...latitudes)],
+                ],
+                {
+                    padding: 70,
+                    maxZoom: 5.5,
+                    duration: 900,
+                }
+            );
+        }
+    }, [selectedTimelineYear, view]);
 
     /*
      * Calculate these instead of hard-coding them.
@@ -844,6 +987,7 @@ const Travel = () => {
                         onClick={() => {
                             setView("places");
                             setSelectedPlace(null);
+                            setSelectedJourneyStop(null);
                         }}
                     >
                         ✦ Places
@@ -858,6 +1002,7 @@ const Travel = () => {
                         onClick={() => {
                             setView("journeys");
                             setSelectedPlace(null);
+                            setSelectedJourneyStop(null);
                         }}
                     >
                         ↝ Journeys
@@ -879,7 +1024,7 @@ const Travel = () => {
 
                             {view === "places"
                                 ? "Places I've explored"
-                                : "Follow my journeys"}
+                                : `${selectedTimeline.year} · ${selectedTimeline.title}`}
 
                         </div>
 
@@ -887,7 +1032,9 @@ const Travel = () => {
 
                             {view === "places"
                                 ? "Hover a marker • Click for details"
-                                : "Follow the route"}
+                                : selectedJourneyPlaces.length > 1
+                                    ? "Click a stop for details"
+                                    : "A place that started it all"}
 
                         </div>
 
@@ -1021,32 +1168,29 @@ const Travel = () => {
                             {view === "journeys" && (
                                 <>
 
-                                    <Source
-                                        id="road-trip"
-                                        type="geojson"
-                                        data={
-                                            roadTripRoute
-                                        }
-                                    >
+                                    {selectedJourneyPlaces.length > 1 && (
+                                        <Source
+                                            id="journey-route"
+                                            type="geojson"
+                                            data={journeyRoute}
+                                        >
+                                            <Layer
+                                                {...roadTripCasingLayer}
+                                            />
+                                            <Layer
+                                                {...roadTripLineLayer}
+                                            />
+                                        </Source>
+                                    )}
 
-                                        <Layer
-                                            {...roadTripCasingLayer}
-                                        />
-
-                                        <Layer
-                                            {...roadTripLineLayer}
-                                        />
-
-                                    </Source>
-
-                                    {ROAD_TRIP.map(
+                                    {selectedJourneyPlaces.map(
                                         (
                                             place,
                                             index
                                         ) => (
 
                                             <Marker
-                                                key={`${place.name}-${index}`}
+                                                key={`${selectedTimeline.year}-${place.name}-${index}`}
                                                 longitude={
                                                     place.coordinates[0]
                                                 }
@@ -1056,7 +1200,14 @@ const Travel = () => {
                                                 anchor="center"
                                             >
 
-                                                <div className="journey-marker">
+                                                <button
+                                                    type="button"
+                                                    className="journey-marker"
+                                                    onClick={() =>
+                                                        setSelectedJourneyStop(place)
+                                                    }
+                                                    aria-label={`Show ${place.name}`}
+                                                >
 
                                                     <span>
                                                         {index + 1}
@@ -1074,7 +1225,7 @@ const Travel = () => {
 
                                                     </div>
 
-                                                </div>
+                                                </button>
 
                                             </Marker>
 
@@ -1166,6 +1317,31 @@ const Travel = () => {
 
                                 )}
 
+                            {selectedJourneyStop &&
+                                view === "journeys" && (
+                                    <Popup
+                                        longitude={selectedJourneyStop.coordinates[0]}
+                                        latitude={selectedJourneyStop.coordinates[1]}
+                                        anchor="bottom"
+                                        closeOnClick={false}
+                                        onClose={() => setSelectedJourneyStop(null)}
+                                        maxWidth="260px"
+                                    >
+                                        <div className="place-popup journey-popup">
+                                            <div className="popup-type journey-popup-type">
+                                                JOURNEY STOP
+                                            </div>
+                                            <h3>{selectedJourneyStop.name}</h3>
+                                            <p>{selectedJourneyStop.state}</p>
+                                            <div className="popup-badge">
+                                                Stop {selectedJourneyPlaces.findIndex(
+                                                    (place) => place.name === selectedJourneyStop.name
+                                                ) + 1} in the {selectedTimeline.year} journey
+                                            </div>
+                                        </div>
+                                    </Popup>
+                                )}
+
                             {/* =================================================
                                 MAP CONTROLS
                             ================================================= */}
@@ -1195,25 +1371,41 @@ const Travel = () => {
                                 MAP LEGEND
                             </div>
 
-                            <div className="legend-item">
-                                <span className="legend-dot place" />
-                                Place
-                            </div>
-
-                            <div className="legend-item">
-                                <span className="legend-dot pilgrimage" />
-                                Pilgrimage
-                            </div>
-
-                            <div className="legend-item">
-                                <span className="legend-dot char-dham" />
-                                Char Dham
-                            </div>
-
-                            <div className="legend-item">
-                                <span className="legend-dot jyotirlinga" />
-                                Jyotirlinga
-                            </div>
+                            {view === "places" ? (
+                                <>
+                                    <div className="legend-item">
+                                        <span className="legend-dot place" />
+                                        Place
+                                    </div>
+                                    <div className="legend-item">
+                                        <span className="legend-dot pilgrimage" />
+                                        Pilgrimage
+                                    </div>
+                                    <div className="legend-item">
+                                        <span className="legend-dot char-dham" />
+                                        Char Dham
+                                    </div>
+                                    <div className="legend-item">
+                                        <span className="legend-dot jyotirlinga" />
+                                        Jyotirlinga
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    {selectedJourneyPlaces.length > 1 && (
+                                        <div className="legend-item">
+                                            <span className="legend-route-line" />
+                                            Driving route
+                                        </div>
+                                    )}
+                                    <div className="legend-item">
+                                        <span className="legend-route-stop">1</span>
+                                        {selectedJourneyPlaces.length > 1
+                                            ? "Journey stop"
+                                            : "Origin place"}
+                                    </div>
+                                </>
+                            )}
 
                         </div>
 
@@ -1229,6 +1421,34 @@ const Travel = () => {
 
                     <section className="journey-section">
 
+                        <div className="journey-timeline">
+                            <div className="timeline-heading">
+                                <div>
+                                    <span className="journey-label">THE JOURNEY SO FAR</span>
+                                    <h2>Years, places and memories</h2>
+                                </div>
+                                <span className="timeline-count">{TRAVEL_TIMELINE.length} chapters</span>
+                            </div>
+
+                            <div className="timeline-list">
+                                {TRAVEL_TIMELINE.map((journey) => (
+                                    <button
+                                        type="button"
+                                        key={journey.year}
+                                        className={`timeline-item ${selectedTimelineYear === journey.year ? "active" : ""}`}
+                                        onClick={() => setSelectedTimelineYear(journey.year)}
+                                    >
+                                        <span className="timeline-year">
+                                            {journey.year}
+                                            {journey.date && ` · ${journey.date}`}
+                                        </span>
+                                        <span className="timeline-title">{journey.title}</span>
+                                        <span className="timeline-stops">{journey.stops.length} {journey.stops.length === 1 ? "place" : "places"}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className="journey-card">
 
                             <div className="journey-card-top">
@@ -1236,36 +1456,32 @@ const Travel = () => {
                                 <div>
 
                                     <span className="journey-label">
-                                        MEMORABLE ROAD TRIP
+                                        {selectedTimeline.origin
+                                            ? "TRAVEL ORIGIN"
+                                            : selectedTimeline.featured
+                                                ? "MEMORABLE ROAD TRIP"
+                                                : "TRAVEL CHAPTER"}
                                     </span>
 
                                     <h2>
-                                        Raipur → Maharashtra →
-                                        Gujarat → MP → Raipur
+                                        {selectedTimeline.title}
                                     </h2>
 
                                 </div>
 
                                 <div className="journey-distance">
-                                    ROAD TRIP
+                                    {selectedTimelineYear} · {selectedTimelinePlaces.length} {selectedTimelinePlaces.length === 1 ? "place" : "places"}
                                 </div>
 
                             </div>
 
                             <p>
-                                A multi-day road journey covering
-                                Grishneshwar, Shirdi,
-                                Bhimashankar, Trimbakeshwar,
-                                Statue of Unity, Vadodara,
-                                Somnath, Dwarka, Nageshwar,
-                                Indore and Nagpur.
+                                {selectedTimeline.description}
                             </p>
 
                             <div className="journey-route-list">
 
-                                {ROAD_TRIP
-                                    .slice(0, -1)
-                                    .map(
+                                {selectedTimelinePlaces.map(
                                         (
                                             place,
                                             index
@@ -1273,11 +1489,11 @@ const Travel = () => {
 
                                             <div
                                                 className="route-stop"
-                                                key={`${place.name}-${index}`}
+                                                key={`${selectedTimelineYear}-${place.name}`}
                                             >
 
                                                 <span>
-                                                    {index + 1}
+                                                        {index + 1}
                                                 </span>
 
                                                 <div>
