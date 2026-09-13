@@ -197,8 +197,11 @@
   text-decoration: none;
 }
 @media (max-width: 650px) {
-  .App { min-height: 88vh; padding: 72px 20px 48px; }
-  .header-home { justify-content: flex-start; overflow-x: auto; padding: 10px 16px; }
-  .header-home a { font-size: 0.78rem; }
-  .travel-preview { flex-direction: column; align-items: flex-start; padding: 72px 20px; }
+  .App { min-height: 76vh; padding: 88px 20px 56px; }
+  .App h1 { font-size: clamp(2.25rem, 12vw, 3.4rem); line-height: 1.05; overflow-wrap: anywhere; }
+  .App h3 { font-size: 1rem; letter-spacing: 0.08em; }
+  .hero-kicker { font-size: 0.8rem; }
+  .travel-preview { flex-direction: column; align-items: flex-start; gap: 24px; padding: 64px 20px; }
+  .travel-preview h2 { font-size: 2rem; line-height: 1.15; }
+  .travel-preview-link { width: 100%; text-align: center; }
 }

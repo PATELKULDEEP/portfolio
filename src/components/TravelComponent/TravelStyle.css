@@ -1306,7 +1306,7 @@
 @media (max-width: 600px) {
     .travel-stats { width: 100%; }
     .travel-stat { min-width: 0; flex: 1; padding: 0 10px; }
-    .travel-map { height: 62vh; min-height: 420px; }
+    .travel-map { height: 58vh; min-height: 360px; max-height: 520px; }
     .travel-map-legend { max-width: 125px; }
     .journey-section { width: 100%; }
     .journey-route-list { gap: 7px; }

@@ -1,96 +1,107 @@
 .about {
-   display: flex;
-   flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-evenly;
-        background-color: #1E2232;
-        color: aliceblue;
-        min-height: 100vh;
-        padding-bottom: 25px;
-        }
-
-.about h1{
-    margin-top: 20px;
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    display: grid;
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+    align-items: center;
+    gap: clamp(32px, 6vw, 88px);
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 96px max(24px, 8vw);
+    background: var(--background);
+    color: var(--text-primary);
 }
-.about-resume{
+
+.about-resume {
     display: flex;
     flex-direction: column;
-    width: 40vw;
+    width: 100%;
     justify-content: center;
     align-items: center;
 }
 
-
 .about-resume img {
-    height: 40vh;
-    width: 22vw;
+    width: min(100%, 280px);
+    aspect-ratio: 1;
+    height: auto;
     object-fit: cover;
-    border: 5px solid rgb(236, 221, 192);;
+    border: 5px solid var(--accent);
     border-radius: 50%;
 }
-@media (max-width: 750px) {
-    .about {
-        display: flex; /* Ensure flex is enabled for mobile layout */
-        flex-direction: column; /* Stack elements vertically on mobile */
-      }
-      .about-resume{
-        order: 1;
-      }
-      .about-details{
-        max-width: 90vw;
-                width: 90vw;
-                min-height: auto;
-                padding: 24px 0 40px;
-        order: 2;
-        }  
-    .about-resume img{
-        width: 60vw;
-        height: auto;
-        border-radius: 50%;
-    }
 
-    .about-details p {
-        text-align: left;
-        padding: 8px 0;
-        line-height: 1.7;
-    }
-
-}
-.about-resume button{
-    margin:auto;
-    font-size: 16px;
-    font-weight: 500;
-    height: 4vh;
-    padding:  0 9px 0 9px;
-    border-color: transparent;
-    background-color: rgb(236, 221, 192);
-}
-.about-details{
-    max-width: 50vw;
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-.about-details p{
-    text-align: justify;
-    padding: 10px;
-    color: var(--text-secondary);
-    font-size: clamp(1rem, 1.4vw, 1.15rem);
-    line-height: 1.8;
-}
-
-.about { background-color: var(--background); color: var(--text-primary); }
-.about-details h3 { font-size: clamp(1.15rem, 2vw, 1.6rem); line-height: 1.4; }
 .about-resume button {
     min-height: 42px;
-    height: auto;
+    margin: 24px auto 0;
     padding: 0 18px;
     border: 1px solid var(--border);
     border-radius: 4px;
-    background-color: var(--accent);
+    background: var(--accent);
     color: var(--on-accent);
     font-size: 16px;
+    font-weight: 600;
 }
-.about-resume button a { color: var(--on-accent); }
+
+.about-resume button a {
+    display: inline-block;
+    padding: 10px 0;
+    color: var(--on-accent);
+}
+
+.about-details {
+    min-width: 0;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-details h1 {
+    margin: 0 0 24px;
+    color: var(--text-primary);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.about-details h3 {
+    margin: 0 0 20px;
+    color: var(--text-primary);
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
+    line-height: 1.4;
+}
+
+.about-details p {
+    margin: 0 0 18px;
+    color: var(--text-secondary);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.8;
+    text-align: left;
+}
+
+@media (max-width: 750px) {
+    .about {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 32px;
+        padding: 96px 20px 72px;
+    }
+
+    .about-resume {
+        order: 1;
+    }
+
+    .about-resume img {
+        width: min(62vw, 240px);
+    }
+
+    .about-details {
+        order: 2;
+        width: 100%;
+        max-width: none;
+    }
+
+    .about-details h1 {
+        margin-bottom: 20px;
+    }
+
+    .about-details p {
+        line-height: 1.7;
+    }
+}

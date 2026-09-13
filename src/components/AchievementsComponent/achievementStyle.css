@@ -33,3 +33,9 @@
 .achievements-more { background-color: var(--accent); color: var(--on-accent); }
 .achievement .card p { color: var(--text-secondary); line-height: 1.65; }
 .achievement .card h4 { color: var(--text-primary); font-size: 1.1rem; }
+
+@media (max-width: 600px) {
+    .achievement { padding-top: 56px; }
+    .achievement h1 { margin: 0 20px; text-align: center; line-height: 1.15; }
+    .achievement .projects-cards { margin-top: 24px; gap: 18px; }
+}

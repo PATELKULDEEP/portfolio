@@ -147,13 +147,21 @@
   }
   
   @media  (max-width: 600px) {
+    .projects { padding: 56px 0 0; }
+    .projects h1 { margin: 0 20px; text-align: center; line-height: 1.15; }
     .projects-cards {
-      width: calc(100% - 30px);
-      margin: 15px;
+      width: calc(100% - 32px);
+      margin: 24px 16px;
       grid-template-columns: 1fr;
+      gap: 18px;
     }
     .projects-cards .card {
-      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+      box-shadow: var(--shadow);
 
     }
+    .card img { height: 190px; }
+    .card .container p { text-align: left; }
+    .card-sources { flex-wrap: wrap; gap: 12px; padding: 14px; }
+    .card-sources a { margin-left: 0; }
+    .projects > a { margin-bottom: 48px; }
   } 

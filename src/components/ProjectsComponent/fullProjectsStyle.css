@@ -108,11 +108,18 @@
   
   @media  (max-width: 600px) {
     .fullprojects-cards {
-      padding: 15px;
+      padding: 16px;
       grid-template-columns: 1fr;
+      gap: 18px;
     }
     .card {
       box-shadow: var(--shadow);
 
     }
+    .full-projects { min-height: 34vh; padding: 92px 20px 36px; }
+    .full-projects h1 { line-height: 1.15; text-align: center; }
+    .fullprojects-cards .card { min-height: 0; }
+    .fullprojects-cards .card img { height: 190px; }
+    .fullprojects-cards .card-sources { flex-wrap: wrap; gap: 12px; }
+    .fullprojects-cards .card-sources a { margin-left: 0; }
   }
