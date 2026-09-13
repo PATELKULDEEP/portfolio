@@ -15,14 +15,18 @@
 .about-resume{
     display: flex;
     flex-direction: column;
+    width: 40vw;
+    justify-content: center;
+    align-items: center;
 }
 
 
-.about-resume img{
-    height: auto;
-    width: 35vw;
-    max-height: 40vh;
-    object-fit: scale-down;
+.about-resume img {
+    height: 40vh;
+    width: 22vw;
+    object-fit: cover;
+    border: 5px solid rgb(236, 221, 192);;
+    border-radius: 50%;
 }
 @media (max-width: 750px) {
     .about {
@@ -39,6 +43,7 @@
     .about-resume img{
         width: 60vw;
         height: auto;
+        border-radius: 50%;
     }
 
 }
@@ -52,7 +57,7 @@
     background-color: rgb(236, 221, 192);
 }
 .about-details{
-    max-width: 60vw;
+    max-width: 50vw;
     min-height: 70vh;
     display: flex;
     flex-direction: column;

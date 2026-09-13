@@ -5,7 +5,7 @@ import Header from "../HeaderComponent/Header";
 import "./projectsStyle.css";
 // import  './sample.css';
 
-import kpImg from "../../assets/images/kp.png";
+import kpImg from "../../assets/images/kp1.png";
 import mitImg from '../../assets/images/mit.png';
 import sihImg from '../../assets/images/sih.png';
 import technohubImg from '../../assets/images/technohub.png';

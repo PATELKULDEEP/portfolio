@@ -46,7 +46,7 @@ function Homepage() {
     return (
   <>
   <div className="App">
-        <h3>Hi, I am</h3>
+        <h3>Hi, I'm</h3>
         <h1>KULDEEP PATEL</h1>
         <div className="homepage-subtitle">
 
