@@ -42,7 +42,7 @@ a{
   
   html {
     box-sizing: border-box;
-    font-size: 62.5%;
+    font-size: 100%;
     scroll-behavior: smooth;
   }
 
@@ -108,7 +108,7 @@ a{
   }
   
   .contact-section-header > h2 {
-    font-size: 6rem;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
   }
   
   @media (max-width: 28.75em) {
@@ -119,6 +119,7 @@ a{
   
   .contact-section-header > p {
     font-style: italic;
+    font-size: 16px;
   }
   
   .contact-links {
@@ -131,8 +132,8 @@ a{
   }
   
   .contact-details {
-    font-size: 2.4rem;
-    text-shadow: 2px 2px 1px #1f1f1f;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    text-shadow: none;
     transition: transform 0.3s ease-out;
   }
   
@@ -141,5 +142,10 @@ a{
     color: rgb(236, 221, 192);
 
   }
+
+.contact-section { background-color: var(--surface-muted); color: var(--text-primary); }
+.contact-section-header > p { color: var(--text-secondary); }
+.contact-details { color: var(--text-primary); }
+.contact-details:hover { color: var(--accent); }
   
   

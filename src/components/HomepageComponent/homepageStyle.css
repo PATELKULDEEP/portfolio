@@ -7,13 +7,13 @@
   padding: 0px;
 }
 .App{
-  background-color: black;
-  color: rgb(236, 221, 192);
+  background-color: var(--surface-muted);
+  color: var(--accent);
 
 }
 
 .App{
-  height: 98vh;
+  min-height: 94vh;
   justify-content: center;
   text-align: center;
   display: flex;
@@ -28,15 +28,28 @@
   letter-spacing: 1.5px;
   /* font-family: 'Playfair Display', serif; */
   font-family: 'Russo One', sans-serif;
-  font-size: 42px;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
   font-weight: 200;
 
 }
 .App h3{
   letter-spacing: 1.5px;
   font-family: 'Source Code Pro', monospace;
-  font-size: 22px;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   /* font-weight: 100; */
+}
+.hero-kicker {
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  letter-spacing: 0.18em;
+}
+.hero-copy {
+  max-width: 520px;
+  margin: 18px auto 0;
+  padding: 0 20px;
+  color: var(--text-secondary);
+  font-size: 1rem;
 }
 .homepage-subtitle{
   display: flex;
@@ -132,21 +145,60 @@
   box-sizing: border-box;
   padding: 10px;
   width: 100%;
-  background-color:black;
-  color: rgb(236, 221, 192);
+  background-color: var(--surface-muted);
+  color: var(--accent);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1rem;
+  gap: 24px;
+  z-index: 90;
 }
 .header-home a{
-  height: 30px;
-  padding: 5px;
+  padding: 7px 0;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
+.header-home .theme-toggle { flex: 0 0 34px; margin: -2px 0 0 4px; }
 
 
 .sticky {
   position: fixed;
   top: 0;
-  background-color: #161a27;
-  color: white;
+  background-color: var(--surface-muted);
+  color: var(--text-primary);
 
+}
+.travel-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 88px max(24px, 8vw);
+  background: var(--surface-muted);
+  color: var(--text-primary);
+}
+.travel-preview h2 {
+  margin: 12px 0;
+  text-align: left;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+}
+.travel-preview p {
+  max-width: 680px;
+  color: var(--text-secondary);
+}
+.travel-preview-link {
+  flex-shrink: 0;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+@media (max-width: 650px) {
+  .App { min-height: 88vh; padding: 72px 20px 48px; }
+  .header-home { justify-content: flex-start; overflow-x: auto; padding: 10px 16px; }
+  .header-home a { font-size: 0.78rem; }
+  .travel-preview { flex-direction: column; align-items: flex-start; padding: 72px 20px; }
 }

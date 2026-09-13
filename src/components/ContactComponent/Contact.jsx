@@ -7,27 +7,31 @@ function Contact() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState("");
 
-  const  sendEmail = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
+    setIsSending(true);
+    setStatus("");
 
-    window.alert("Currently form is not working, Please contact with me through social medias's given in footer")
-
-    // emailjs
-    //   .sendForm(
-    //     "service_eqp4gzb",
-    //     "template_fksqbf6",
-    //     { name: "name", email: "email",  message: "message" },
-    //     "user_cYxQj4CXBNqFVuIqfsndF"
-    //   )
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //     },
-    //     (error) => {
-    //       console.log(error.text);
-    //     }
-    //   );
+    emailjs.sendForm(
+      "service_eqp4gzb",
+      "template_fksqbf6",
+      e.currentTarget,
+      "user_cYxQj4CXBNqFVuIqfsndF"
+    ).then(() => {
+      setStatus("Message sent successfully.");
+      setName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
+      e.currentTarget.reset();
+    }).catch(() => {
+      setStatus("The message could not be sent. Please try again or use the social links below.");
+    }).finally(() => {
+      setIsSending(false);
+    });
   }
 
   return (
@@ -40,6 +44,7 @@ function Contact() {
             <input
               type='text'
               placeholder='Enter Your Name'
+              value={name}
               onChange={(e) => setName(e.target.value)}
               name='name'
               id='name'
@@ -52,6 +57,7 @@ function Contact() {
             <input
               type='email'
               placeholder='Enter Your Email-Address'
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               name='email'
               id='email'
@@ -63,6 +69,7 @@ function Contact() {
             <input
               type='text'
               placeholder='Enter Message Subject'
+              value={subject}
               onChange={(e) => setSubject(e.target.value)}
               name='subject'
             />
@@ -73,14 +80,16 @@ function Contact() {
               type='text'
               placeholder='Enter Your Message'
               rows='4'
+              value={message}
               onChange={(e) => setMessage(e.target.value)}
               name='message'
               required
             ></textarea>
           </div>
-          <button className='form-input' type='submit'>
-            Submit
+          <button className='form-input' type='submit' disabled={isSending}>
+            {isSending ? 'Sending...' : 'Send message'}
           </button>
+          {status && <p className="form-status" role="status">{status}</p>}
         </form>
       </div>
     </>

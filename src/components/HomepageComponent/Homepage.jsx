@@ -3,55 +3,16 @@ import './homepageStyle.css'
 import {Link} from 'react-router-dom'
 import Projects from '../ProjectsComponent/Projects';
 import Contact from '../ContactComponent/Contact';
-import Header from '../HeaderComponent/Header';
 import About from '../AboutComponent/About';
 import Achievemens from '../AchievementsComponent/Achievements';
+import Experience from '../ExperienceComponent/Experience';
+import Header from '../HeaderComponent/Header';
 function Homepage() {
-
-  const scrollToSection = (event, sectionId) => {
-    event.preventDefault();
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // When the event DOMContentLoaded occurs, it is safe to access the DOM
-    // When the user scrolls the page, execute myFunction 
-    window.addEventListener('scroll', myFunctionForSticky);
-  
-    // Get the navbar
-    var navbar = document.getElementById("header-home");
-  
-    // Get the offset position of the navbar
-    var sticky = navbar?.offsetTop;
-  
-    // Add the sticky class to the navbar when you reach its scroll position. 
-    // Remove "sticky" when you leave the scroll position
-  
-    function myFunctionForSticky() {
-      if (window.pageYOffset >= sticky) {
-        console.log("window.pageYOffset >= sticky");
-      } else {
-        console.log("Not window.pageYOffset >= sticky");
-      }
-      if (window.pageYOffset >= (sticky)) {
-        navbar?.classList.add("sticky");
-      } else {
-        navbar?.classList.remove("sticky");
-      }
-    }
-  
-    /*Toggle between adding and removing the "responsive" class to topnav
-    when the user clicks on the icon*/
-  
-    function myFunctionForResponsive() {
-      navbar.classList.toggle('responsive');
-    }
-  })
 
     return (
   <>
   <div className="App">
-        <h3>Hi, I'm</h3>
+        <p className="hero-kicker">HELLO, I'M</p>
         <h1>KULDEEP PATEL</h1>
         <div className="homepage-subtitle">
 
@@ -59,26 +20,25 @@ function Homepage() {
         </div>
 
     </div>
-       <div className="header-home" id="header-home">
-             <a href="#about" onClick={(event) => scrollToSection(event, 'about')}>
-                About
-            </a>
-            <a href="#projects" onClick={(event) => scrollToSection(event, 'projects')}>
-                Projects
-            </a>
-            <a href="#achievement" onClick={(event) => scrollToSection(event, 'achievement')}>
-                Achievement
-            </a>
-      </div> 
+      <Header homepage />
       <div id="about">
         <About/>
       </div>
+      <Experience />
       <div id="projects">
         <Projects/>
       </div>
       <div id="achievement">
         <Achievemens/>
       </div>
+      <section className="travel-preview" id="travel">
+        <div>
+          <span className="section-kicker">PERSONAL ATLAS</span>
+          <h2>Places, pilgrimages and long roads.</h2>
+          <p>Explore the interactive map behind the journeys: 33+ places, 14 states, 10 / 12 Jyotirlingas and 4 / 4 Char Dham.</p>
+        </div>
+        <Link to="/portfolio/travel" className="travel-preview-link">Explore travel <span aria-hidden="true">↗</span></Link>
+      </section>
       <div id="contact">
         <Contact/>
       </div>

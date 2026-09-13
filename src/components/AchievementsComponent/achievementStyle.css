@@ -10,12 +10,26 @@
 
 .achievement h1{
     margin-top: 40px;
+    font-size: clamp(2rem, 4vw, 2.8rem);
 }
-.achievement a{
+.achievement > a{
     margin-bottom: 60px;
 }
 .achievements-more{
-    padding: 5px 10px 5px 10px;
-    background-color: rgb(236, 221, 192);
-    color: #1E2232;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--accent);
+    color: var(--on-accent);
+    font-size: 16px;
+    font-weight: 600;
 }
+
+.achievement { background-color: var(--background); color: var(--text-primary); }
+.achievements-more { background-color: var(--accent); color: var(--on-accent); }
+.achievement .card p { color: var(--text-secondary); line-height: 1.65; }
+.achievement .card h4 { color: var(--text-primary); font-size: 1.1rem; }

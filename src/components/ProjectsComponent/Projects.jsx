@@ -131,7 +131,7 @@ Resource for Businesses Prize.</p>
       <Link
         to='/portfolio/projects'
         className='projects-more'
-      >{` More Projects --> `}</Link>
+      >More Projects</Link>
     </div> 
 
   );

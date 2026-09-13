@@ -7,17 +7,11 @@
     width: 100%;
     box-sizing: border-box;
 
-    padding: 50px 5vw 80px;
+    padding: 110px 5vw 80px;
 
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(236, 221, 192, 0.07),
-            transparent 35%
-        ),
-        #1e2232;
+    background: var(--background);
 
-    color: #f0f0f0;
+    color: var(--text-primary);
 
     overflow-x: hidden;
 }
@@ -37,7 +31,7 @@
 .travel-header h1 {
     margin: 0;
 
-    font-size: clamp(42px, 6vw, 76px);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
 
     line-height: 1.05;
 
@@ -45,7 +39,7 @@
 
     letter-spacing: -3px;
 
-    color: #f2f0e9;
+    color: var(--text-primary);
 }
 
 .travel-header h1 span {
@@ -57,7 +51,7 @@
 
     margin: 18px auto 0;
 
-    color: #9299ad;
+    color: var(--text-secondary);
 
     font-size: 16px;
 
@@ -93,7 +87,7 @@
 .travel-stat strong {
     display: block;
 
-    color: #ead9b1;
+    color: var(--accent);
 
     font-size: 34px;
 
@@ -105,7 +99,7 @@
 
     margin-top: 9px;
 
-    color: #858ca0;
+    color: var(--text-secondary);
 
     font-size: 10px;
 
@@ -145,11 +139,11 @@
 
     background: transparent;
 
-    color: #8e95a8;
+    color: var(--text-secondary);
 
     padding: 10px 23px;
 
-    border-radius: 24px;
+    border-radius: 8px;
 
     font-size: 14px;
 
@@ -162,13 +156,13 @@
 }
 
 .travel-toggle button:hover {
-    color: #f2f0e9;
+    color: var(--text-primary);
 }
 
 .travel-toggle button.active {
-    background: #ead9b1;
+    background: var(--accent);
 
-    color: #202432;
+    color: var(--on-accent);
 
     box-shadow:
         0 4px 18px rgba(234, 217, 177, 0.18);
@@ -188,12 +182,12 @@
 
     overflow: hidden;
 
-    border-radius: 24px;
+    border-radius: 8px;
 
     border:
         1px solid rgba(255, 255, 255, 0.16);
 
-    background: #11141d;
+    background: var(--surface);
 
     box-shadow:
         0 30px 80px rgba(0, 0, 0, 0.3);
@@ -217,7 +211,7 @@
 
     box-sizing: border-box;
 
-    background: #11141d;
+    background: var(--surface);
 
     border-bottom:
         1px solid rgba(255, 255, 255, 0.08);
@@ -309,7 +303,7 @@
         1px solid rgba(255, 255, 255, 0.18);
 
     background:
-        rgba(20, 24, 34, 0.92);
+        var(--map-surface);
 
     box-shadow:
         0 8px 25px rgba(0, 0, 0, 0.25);
@@ -331,7 +325,7 @@
 
 .travel-map .maplibregl-ctrl-attrib {
     background:
-        rgba(20, 24, 34, 0.78);
+        var(--map-surface);
 
     color: #858ca0;
 
@@ -366,7 +360,7 @@
         1px solid rgba(255, 255, 255, 0.12);
 
     background:
-        rgba(20, 23, 32, 0.92);
+        var(--map-surface);
 
     backdrop-filter: blur(12px);
 
@@ -594,9 +588,9 @@
 
     border-radius: 14px !important;
 
-    background: #202432 !important;
+    background: var(--surface) !important;
 
-    color: #fff !important;
+    color: var(--text-primary) !important;
 
     border:
         1px solid rgba(255, 255, 255, 0.1);
@@ -606,7 +600,7 @@
 }
 
 .maplibregl-popup-tip {
-    border-top-color: #202432 !important;
+    border-top-color: var(--surface) !important;
 }
 
 .maplibregl-popup-close-button {
@@ -672,13 +666,13 @@
 
     font-size: 18px;
 
-    color: #f5f2ea;
+    color: var(--text-primary);
 }
 
 .place-popup p {
     margin: 4px 0 0;
 
-    color: #969daf;
+    color: var(--text-secondary);
 
     font-size: 12px;
 }
@@ -718,9 +712,9 @@
 
     background: #ead9b1;
 
-    border: 3px solid #202432;
+    border: 3px solid var(--surface);
 
-    color: #202432;
+    color: var(--on-accent);
 
     font-size: 10px;
 
@@ -812,7 +806,7 @@
 
     border-radius: 18px;
 
-    background: #151923;
+    background: var(--surface);
 
     border:
         1px solid rgba(255, 255, 255, 0.11);
@@ -1066,7 +1060,7 @@
 
     overflow: hidden;
 
-    background: #151923;
+    background: var(--surface);
 }
 
 .achievement-card {
@@ -1128,7 +1122,7 @@
 
     .travel-page {
         padding:
-            30px
+            92px
             12px
             60px;
     }
@@ -1287,4 +1281,43 @@
             bottom left;
     }
 
+}
+
+/* Shared portfolio theme and narrow-screen safeguards. */
+.travel-page {
+    background: var(--background);
+    color: var(--text-primary);
+}
+
+.travel-map-card,
+.journey-card,
+.travel-achievements {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+.travel-header p,
+.travel-map-hint,
+.journey-card > p,
+.travel-footer-note {
+    color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+    .travel-stats { width: 100%; }
+    .travel-stat { min-width: 0; flex: 1; padding: 0 10px; }
+    .travel-map { height: 62vh; min-height: 420px; }
+    .travel-map-legend { max-width: 125px; }
+    .journey-section { width: 100%; }
+    .journey-route-list { gap: 7px; }
+    .route-stop { max-width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }

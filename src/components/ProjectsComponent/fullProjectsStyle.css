@@ -1,14 +1,16 @@
 .full-projects{
-    min-height: 60vh;
-    background-color: rgb(4, 41, 58);
-    color: whitesmoke;
-    font-size: 32px;
+  min-height: 42vh;
+  padding: 96px 24px 48px;
+  box-sizing: border-box;
+  background-color: var(--background);
+  color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .full-projects h1{
-    padding-top: 50px;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.8rem);
 }
 /* .projects{
   
@@ -32,7 +34,7 @@
 
 .fullprojects-cards {
     padding: 25px;
-    background-color: rgb(4, 41, 58);
+    background-color: var(--background);
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 30px;
@@ -42,16 +44,21 @@
     text-align: center;
     height: 100%;
 
-    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     transition: 0.3s;
     min-height: 50vh;
     margin: 0;
   }
   .card p {
     margin: 10px;
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.65;
   }
   .card:hover {
-    box-shadow: 0 8px 16px 0 rgb(255, 255, 255);
+    box-shadow: var(--shadow);
   }
   .card img {
     padding: 9px;
@@ -63,6 +70,7 @@
   .card h3 {
     text-align: center;
   }
+  .card h4 { color: var(--text-primary); font-size: 1.05rem; }
   .card p {
     padding: 5px;
     text-align: center;
@@ -93,7 +101,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .card {
-      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+      box-shadow: var(--shadow);
 
     }
   }
@@ -104,7 +112,7 @@
       grid-template-columns: 1fr;
     }
     .card {
-      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.479);
+      box-shadow: var(--shadow);
 
     }
   }

@@ -12,6 +12,7 @@ import {
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./TravelStyle.css";
+import Header from "../HeaderComponent/Header";
 
 /* =========================================================
    MAP CONFIG
@@ -27,7 +28,7 @@ import "./TravelStyle.css";
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
 const INDIA_STATES =
-    `${process.env.PUBLIC_URL}/maps/india-states-simplified.geojson`;
+    `${process.env.PUBLIC_URL}/maps/india.json`;
 
 /*
  * Keep the user inside/around India.
@@ -547,7 +548,9 @@ const Travel = () => {
     };
 
     return (
-        <div className="travel-page">
+        <>
+            <Header />
+            <div className="travel-page">
 
             {/* =================================================
                 HEADER
@@ -1088,7 +1091,8 @@ const Travel = () => {
                 More places, journeys and memories will be added over time.
             </div>
 
-        </div>
+            </div>
+        </>
     );
 };
 

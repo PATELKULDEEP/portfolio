@@ -133,7 +133,7 @@ criminal tracking and record maintenance</p>
 <Link
         to='/portfolio/achievements'
         className='projects-more'
-      >{` More Achievements --> `}</Link>
+      >More Achievements</Link>
 
         </div>
     )
