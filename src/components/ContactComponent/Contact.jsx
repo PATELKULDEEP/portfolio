@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import emailjs from "emailjs-com";
 
 import "./contactStyle.css";
+
+const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_eqp4gzb";
+const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "template_fksqbf6";
+const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "user_cYxQj4CXBNqFVuIqfsndF";
+const CONTACT_EMAIL = process.env.REACT_APP_CONTACT_EMAIL || "patelkuldeep0001@gmail.com";
+
 function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,29 +16,44 @@ function Contact() {
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState("");
 
+  const openMailClient = (form) => {
+    const formData = new FormData(form);
+    const subjectLine = formData.get("subject") || "Message from portfolio website";
+    const body = [
+      `Name: ${formData.get("name")}`,
+      `Email: ${formData.get("email")}`,
+      "",
+      formData.get("message"),
+    ].join("\n");
+
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(body)}`;
+  };
+
   const sendEmail = (e) => {
     e.preventDefault();
     setIsSending(true);
     setStatus("");
 
+    const form = e.currentTarget;
     emailjs.sendForm(
-      "service_eqp4gzb",
-      "template_fksqbf6",
-      e.currentTarget,
-      "user_cYxQj4CXBNqFVuIqfsndF"
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      form,
+      EMAILJS_PUBLIC_KEY
     ).then(() => {
       setStatus("Message sent successfully.");
       setName("");
       setEmail("");
       setSubject("");
       setMessage("");
-      e.currentTarget.reset();
+      form.reset();
     }).catch(() => {
-      setStatus("The message could not be sent. Please try again or use the social links below.");
+      openMailClient(form);
+      setStatus("Your email app has been opened with the message ready to send.");
     }).finally(() => {
       setIsSending(false);
     });
-  }
+  };
 
   return (
     <>
