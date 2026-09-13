@@ -1,383 +1,1246 @@
-.travel {
+/* =========================================================
+   TRAVEL PAGE
+========================================================= */
+
+.travel-page {
     min-height: 100vh;
     width: 100%;
     box-sizing: border-box;
-    background-color: #1E2232;
-    color: aliceblue;
-    padding: 55px 20px 70px;
-    overflow: hidden;
+
+    padding: 50px 5vw 80px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(236, 221, 192, 0.07),
+            transparent 35%
+        ),
+        #1e2232;
+
+    color: #f0f0f0;
+
+    overflow-x: hidden;
 }
 
-/* -------------------------------- */
-/* Header                           */
-/* -------------------------------- */
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .travel-header {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
 }
 
 .travel-eyebrow {
-    color: rgb(236, 221, 192);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 12px;
+
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 3px;
-    margin: 0 0 10px;
+
+    letter-spacing: 2px;
+
+    color: #9299ad;
+}
+
+.travel-eyebrow-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #e5b85c;
+
+    box-shadow:
+        0 0 0 5px rgba(229, 184, 92, 0.1),
+        0 0 12px rgba(229, 184, 92, 0.55);
 }
 
 .travel-header h1 {
-    font-size: clamp(30px, 4vw, 46px);
     margin: 0;
-    font-weight: 600;
+
+    font-size: clamp(42px, 6vw, 76px);
+
+    line-height: 1.05;
+
+    font-weight: 700;
+
+    letter-spacing: -3px;
+
+    color: #f2f0e9;
 }
 
-.travel-subtitle {
-    max-width: 600px;
-    margin: 14px auto 0;
-    color: rgba(240, 248, 255, 0.65);
-    font-size: 15px;
+.travel-header h1 span {
+    color: #e5b85c;
+}
+
+.travel-header p {
+    max-width: 650px;
+
+    margin: 18px auto 0;
+
+    color: #9299ad;
+
+    font-size: 16px;
+
     line-height: 1.7;
 }
 
-/* -------------------------------- */
-/* Statistics                       */
-/* -------------------------------- */
+
+/* =========================================================
+   STATS
+========================================================= */
 
 .travel-stats {
     display: flex;
+
     justify-content: center;
-    align-items: center;
-    margin: 35px auto 15px;
-    gap: 25px;
+
+    margin-top: 30px;
 }
 
 .travel-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 70px;
+    min-width: 150px;
+
+    padding: 0 35px;
+
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.travel-stat-number {
-    color: rgb(236, 221, 192);
-    font-size: 23px;
-    font-weight: 600;
+.travel-stat:last-child {
+    border-right: none;
 }
 
-.travel-stat-label {
-    margin-top: 3px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(240, 248, 255, 0.5);
-}
-
-.travel-stat-divider {
-    height: 28px;
-    width: 1px;
-    background-color: rgba(236, 221, 192, 0.25);
-}
-
-/* -------------------------------- */
-/* Map                             */
-/* -------------------------------- */
-
-.travel-map-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.travel-map-wrapper svg {
+.travel-stat strong {
     display: block;
-    width: 100%;
-    height: auto;
+
+    color: #ead9b1;
+
+    font-size: 34px;
+
+    line-height: 1;
 }
 
-/* India */
-.india-map {
-    fill: #292E42;
-    stroke: rgba(236, 221, 192, 0.65);
-    stroke-width: 0.65;
-    outline: none;
-    transition:
-        fill 0.25s ease,
-        stroke 0.25s ease;
-}
+.travel-stat span {
+    display: block;
 
-.india-map:hover {
-    fill: #30364D;
-}
+    margin-top: 9px;
 
-/* -------------------------------- */
-/* Travel markers                   */
-/* -------------------------------- */
+    color: #858ca0;
 
-.travel-marker {
-    fill: #F4A261;
-    stroke: #1E2232;
-    stroke-width: 2;
-    cursor: pointer;
-    transition:
-        r 0.2s ease,
-        fill 0.2s ease;
-}
-
-.travel-marker-active {
-    fill: #FFD166;
-}
-
-/* Tiny center point */
-.marker-core {
-    fill: #1E2232;
-    pointer-events: none;
-}
-
-/* Outer ring */
-.marker-pulse {
-    fill: none;
-    stroke: #F4A261;
-    stroke-width: 1.2;
-    opacity: 0.25;
-    pointer-events: none;
-}
-
-.marker-pulse-active {
-    stroke: #FFD166;
-    opacity: 0.8;
-    animation: travel-pulse 1.5s ease-out infinite;
-}
-
-@keyframes travel-pulse {
-    0% {
-        opacity: 0.8;
-        r: 7;
-    }
-
-    70% {
-        opacity: 0;
-        r: 17;
-    }
-
-    100% {
-        opacity: 0;
-        r: 17;
-    }
-}
-
-/* -------------------------------- */
-/* Hover location label             */
-/* -------------------------------- */
-
-.marker-label {
-    pointer-events: none;
-}
-
-.marker-label rect {
-    fill: #1E2232;
-    stroke: rgba(236, 221, 192, 0.55);
-    stroke-width: 0.7;
-}
-
-.marker-label text {
-    fill: rgb(236, 221, 192);
-    font-size: 9px;
-    font-weight: 600;
-}
-
-/* -------------------------------- */
-/* Map controls                     */
-/* -------------------------------- */
-
-.map-controls {
-    position: absolute;
-    right: 20px;
-    bottom: 55px;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.map-controls button {
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(236, 221, 192, 0.25);
-    border-radius: 8px;
-    background-color: rgba(30, 34, 50, 0.9);
-    color: rgb(236, 221, 192);
-    font-size: 20px;
-    cursor: pointer;
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.map-controls button:hover {
-    background-color: #292E42;
-    border-color: rgb(236, 221, 192);
-    transform: translateY(-1px);
-}
-
-.map-controls .reset-button {
-    margin-top: 4px;
-    font-size: 18px;
-}
-
-/* -------------------------------- */
-/* Map hint                         */
-/* -------------------------------- */
-
-.map-hint {
-    position: absolute;
-    left: 50%;
-    bottom: 18px;
-    transform: translateX(-50%);
-    padding: 7px 14px;
-    border-radius: 20px;
-    background-color: rgba(30, 34, 50, 0.85);
-    border: 1px solid rgba(236, 221, 192, 0.12);
-    color: rgba(240, 248, 255, 0.45);
     font-size: 10px;
-    white-space: nowrap;
-    pointer-events: none;
-}
 
-/* -------------------------------- */
-/* Selected location card           */
-/* -------------------------------- */
-
-.travel-location-card {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    min-width: 280px;
-    max-width: calc(100vw - 40px);
-    margin: -5px auto 0;
-    padding: 14px 18px;
-    border: 1px solid rgba(236, 221, 192, 0.25);
-    border-radius: 12px;
-    background-color: #292E42;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    animation: location-card-in 0.25s ease-out;
-}
-
-@keyframes location-card-in {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.location-card-indicator {
-    width: 4px;
-    height: 42px;
-    margin-right: 15px;
-    border-radius: 5px;
-    background-color: #F4A261;
-}
-
-.location-card-content {
-    text-align: left;
-}
-
-.location-card-category {
-    color: #F4A261;
-    font-size: 9px;
     font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+
+    letter-spacing: 2px;
 }
 
-.location-card-content h2 {
-    margin: 3px 0 1px;
-    color: aliceblue;
-    font-size: 18px;
-    font-weight: 600;
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+.travel-toggle {
+    width: fit-content;
+
+    display: flex;
+
+    margin: 28px auto 24px;
+
+    padding: 4px;
+
+    border-radius: 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    background: rgba(8, 10, 17, 0.55);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.location-card-content p {
-    margin: 0;
-    color: rgba(240, 248, 255, 0.5);
+.travel-toggle button {
+    border: none;
+
+    background: transparent;
+
+    color: #8e95a8;
+
+    padding: 10px 23px;
+
+    border-radius: 24px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.travel-toggle button:hover {
+    color: #f2f0e9;
+}
+
+.travel-toggle button.active {
+    background: #ead9b1;
+
+    color: #202432;
+
+    box-shadow:
+        0 4px 18px rgba(234, 217, 177, 0.18);
+}
+
+
+/* =========================================================
+   MAP CARD
+========================================================= */
+
+.travel-map-card {
+    width: 100%;
+
+    max-width: 1450px;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+
+    background: #11141d;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================================================
+   MAP HEADER
+========================================================= */
+
+.travel-map-header {
+    min-height: 62px;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    box-sizing: border-box;
+
+    background: #11141d;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.travel-map-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 15px;
+
+    color: #e9e7e2;
+}
+
+.travel-live-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #e5a454;
+
+    box-shadow:
+        0 0 0 5px rgba(229, 164, 84, 0.1),
+        0 0 14px rgba(229, 164, 84, 0.5);
+}
+
+.travel-map-hint {
+    font-size: 11px;
+
+    color: #737b90;
+}
+
+
+/* =========================================================
+   MAP
+========================================================= */
+
+.travel-map {
+    position: relative;
+
+    width: 100%;
+
+    height: min(70vh, 760px);
+
+    min-height: 520px;
+
+    background: #151923;
+}
+
+
+/*
+ * IMPORTANT:
+ * MapLibre needs its container to have a real height.
+ */
+
+.travel-map .maplibregl-map {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100% !important;
+
+    height: 100% !important;
+}
+
+.travel-map .maplibregl-canvas {
+    outline: none;
+}
+
+
+/* =========================================================
+   MAP CONTROLS
+========================================================= */
+
+.travel-map .maplibregl-ctrl-group {
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+
+    background: rgba(20, 24, 34, 0.9);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.travel-map .maplibregl-ctrl-group button {
+    background-color: transparent;
+}
+
+.travel-map .maplibregl-ctrl-group button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   LEGEND
+========================================================= */
+
+.travel-map-legend {
+    position: absolute;
+
+    left: 20px;
+    bottom: 20px;
+
+    z-index: 10;
+
+    min-width: 150px;
+
+    padding: 15px 17px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: rgba(20, 23, 32, 0.92);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.28);
+}
+
+.legend-title {
+    margin-bottom: 10px;
+
+    color: #777f94;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+.legend-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 7px;
+
+    color: #c8cbd4;
+
     font-size: 12px;
 }
 
-.location-card-close {
-    align-self: flex-start;
-    margin-left: 25px;
-    border: none;
-    background: transparent;
-    color: rgba(240, 248, 255, 0.45);
-    font-size: 20px;
-    line-height: 1;
+.legend-dot {
+    width: 8px;
+    height: 8px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+.legend-dot.place {
+    background: #e5a454;
+}
+
+.legend-dot.pilgrimage {
+    background: #61c7ad;
+}
+
+.legend-dot.char-dham {
+    background: #e5c25c;
+}
+
+.legend-dot.jyotirlinga {
+    background: #b38ce6;
+}
+
+
+/* =========================================================
+   PLACE MARKERS
+========================================================= */
+
+.travel-marker {
+    position: relative;
+
+    width: 24px;
+    height: 24px;
+
+    padding: 0;
+
+    border: 2px solid rgba(255, 255, 255, 0.85);
+
+    border-radius: 50%;
+
     cursor: pointer;
+
+    background: #e5a454;
+
+    box-shadow:
+        0 0 0 4px rgba(229, 164, 84, 0.14),
+        0 0 18px rgba(229, 164, 84, 0.45);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.location-card-close:hover {
-    color: rgb(236, 221, 192);
+.travel-marker:hover {
+    transform: scale(1.35);
+
+    z-index: 20;
+
+    box-shadow:
+        0 0 0 7px rgba(229, 164, 84, 0.13),
+        0 0 30px rgba(229, 164, 84, 0.7);
 }
 
-/* -------------------------------- */
-/* Mobile                           */
-/* -------------------------------- */
+.marker-core {
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: white;
+}
+
+
+/* marker categories */
+
+.travel-marker.pilgrimage {
+    background: #61c7ad;
+
+    box-shadow:
+        0 0 0 4px rgba(97, 199, 173, 0.14),
+        0 0 18px rgba(97, 199, 173, 0.45);
+}
+
+.travel-marker.char-dham {
+    background: #e5c25c;
+
+    box-shadow:
+        0 0 0 4px rgba(229, 194, 92, 0.14),
+        0 0 18px rgba(229, 194, 92, 0.45);
+}
+
+.travel-marker.jyotirlinga {
+    background: #b38ce6;
+
+    box-shadow:
+        0 0 0 4px rgba(179, 140, 230, 0.14),
+        0 0 18px rgba(179, 140, 230, 0.5);
+}
+
+
+/* =========================================================
+   MARKER TOOLTIP
+========================================================= */
+
+.marker-tooltip {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 35px;
+
+    transform:
+        translateX(-50%)
+        translateY(5px);
+
+    width: max-content;
+
+    max-width: 180px;
+
+    padding: 8px 11px;
+
+    border-radius: 9px;
+
+    background: rgba(15, 18, 27, 0.96);
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.4);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease;
+
+    text-align: left;
+}
+
+.travel-marker:hover .marker-tooltip {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+.marker-tooltip strong {
+    display: block;
+
+    color: #f3efe6;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.marker-tooltip small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #9299ad;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+.maplibregl-popup-content {
+    padding: 0 !important;
+
+    border-radius: 14px !important;
+
+    background: #202432 !important;
+
+    color: #fff !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.maplibregl-popup-tip {
+    border-top-color: #202432 !important;
+}
+
+.maplibregl-popup-close-button {
+    color: #aab0be;
+
+    font-size: 18px;
+
+    padding: 5px 8px;
+}
+
+.place-popup {
+    padding: 17px 18px;
+
+    min-width: 180px;
+}
+
+.popup-type {
+    display: inline-block;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    background: rgba(229, 164, 84, 0.14);
+
+    color: #e5a454;
+}
+
+.popup-type.pilgrimage {
+    background: rgba(97, 199, 173, 0.14);
+
+    color: #61c7ad;
+}
+
+.popup-type.char-dham {
+    background: rgba(229, 194, 92, 0.14);
+
+    color: #e5c25c;
+}
+
+.popup-type.jyotirlinga {
+    background: rgba(179, 140, 230, 0.14);
+
+    color: #b38ce6;
+}
+
+.place-popup h3 {
+    margin: 0;
+
+    font-size: 18px;
+
+    color: #f5f2ea;
+}
+
+.place-popup p {
+    margin: 4px 0 0;
+
+    color: #969daf;
+
+    font-size: 12px;
+}
+
+.popup-badge {
+    margin-top: 12px;
+
+    padding-top: 10px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    color: #d7c99f;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   JOURNEY MARKERS
+========================================================= */
+
+.journey-marker {
+    position: relative;
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ead9b1;
+
+    border: 3px solid #202432;
+
+    color: #202432;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 0 0 4px rgba(234, 217, 177, 0.2),
+        0 0 20px rgba(234, 217, 177, 0.45);
+
+    z-index: 4;
+}
+
+.journey-marker:hover {
+    transform: scale(1.15);
+}
+
+.journey-marker-tooltip {
+    position: absolute;
+
+    bottom: 38px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(5px);
+
+    width: max-content;
+
+    padding: 8px 11px;
+
+    border-radius: 9px;
+
+    background: rgba(15, 18, 27, 0.96);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: 0.18s ease;
+}
+
+.journey-marker:hover .journey-marker-tooltip {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+.journey-marker-tooltip strong {
+    display: block;
+
+    color: #f5f2ea;
+
+    font-size: 11px;
+}
+
+.journey-marker-tooltip small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #9299ad;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   JOURNEY SECTION
+========================================================= */
+
+.journey-section {
+    max-width: 1000px;
+
+    margin: 28px auto 0;
+}
+
+.journey-card {
+    padding: 28px;
+
+    border-radius: 18px;
+
+    background: #151923;
+
+    border: 1px solid rgba(255, 255, 255, 0.11);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.journey-card-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+.journey-label {
+    color: #858ca0;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+.journey-card h2 {
+    margin: 8px 0 0;
+
+    color: #eee9dc;
+
+    font-size: clamp(20px, 3vw, 30px);
+
+    font-weight: 500;
+}
+
+.journey-distance {
+    flex-shrink: 0;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    color: #e5b85c;
+
+    background: rgba(229, 184, 92, 0.08);
+
+    border: 1px solid rgba(229, 184, 92, 0.25);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    font-weight: 700;
+}
+
+.journey-card > p {
+    max-width: 800px;
+
+    margin: 17px 0 25px;
+
+    color: #9299ad;
+
+    line-height: 1.7;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   ROUTE STOPS
+========================================================= */
+
+.journey-route-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+}
+
+.route-stop {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 11px;
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.route-stop > span {
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #292e40;
+
+    color: #e5b85c;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+.route-stop strong {
+    display: block;
+
+    color: #d9dce4;
+
+    font-size: 11px;
+}
+
+.route-stop small {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #70788c;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   PLANNED JOURNEY
+========================================================= */
+
+.planned-journey {
+    margin-top: 18px;
+
+    padding: 22px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    border-radius: 17px;
+
+    border: 1px dashed rgba(234, 217, 177, 0.28);
+
+    background: rgba(234, 217, 177, 0.035);
+}
+
+.planned-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    color: #e5b85c;
+
+    background: rgba(234, 217, 177, 0.06);
+
+    font-size: 22px;
+}
+
+.planned-journey div:nth-child(2) {
+    flex: 1;
+}
+
+.planned-journey span {
+    display: block;
+
+    color: #858ca0;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+}
+
+.planned-journey strong {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #e9e5db;
+
+    font-size: 22px;
+
+    font-weight: 500;
+}
+
+.planned-status {
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    color: #e5b85c;
+
+    border: 1px solid rgba(229, 184, 92, 0.25);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+.travel-achievements {
+    max-width: 600px;
+
+    margin: 45px auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    background: #151923;
+}
+
+.achievement-card {
+    padding: 23px;
+
+    text-align: center;
+
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.achievement-card:last-child {
+    border-right: none;
+}
+
+.achievement-card strong {
+    display: block;
+
+    color: #ead9b1;
+
+    font-size: 28px;
+}
+
+.achievement-card span {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #7e8699;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+}
+
+
+/* =========================================================
+   FOOTER NOTE
+========================================================= */
+
+.travel-footer-note {
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #646c80;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 750px) {
 
-    .travel {
-        padding: 35px 10px 50px;
+    .travel-page {
+        padding:
+            30px
+            12px
+            60px;
     }
 
     .travel-header h1 {
-        font-size: 32px;
+        font-size: 42px;
+
+        letter-spacing: -2px;
     }
 
-    .travel-subtitle {
+    .travel-header p {
         font-size: 13px;
-        max-width: 90%;
+
+        padding: 0 10px;
     }
 
     .travel-stats {
-        gap: 15px;
-        margin-top: 28px;
+        margin-top: 24px;
     }
 
-    .travel-stat-number {
-        font-size: 19px;
+    .travel-stat {
+        min-width: 120px;
+
+        padding: 0 20px;
     }
 
-    .travel-stat-label {
-        font-size: 9px;
+    .travel-stat strong {
+        font-size: 27px;
     }
 
-    .travel-map-wrapper {
-        margin-top: 5px;
+    .travel-toggle {
+        margin-top: 22px;
     }
 
-    .map-controls {
-        right: 8px;
-        bottom: 50px;
+    .travel-map-card {
+        border-radius: 16px;
     }
 
-    .map-controls button {
-        width: 32px;
-        height: 32px;
+    .travel-map-header {
+        min-height: 56px;
+
+        padding: 0 14px;
     }
 
-    .map-hint {
-        bottom: 12px;
+    .travel-map-hint {
+        display: none;
+    }
+
+    .travel-map {
+        height: 68vh;
+
+        min-height: 500px;
+    }
+
+    .travel-map-legend {
+        left: 10px;
+        bottom: 10px;
+
+        padding: 11px 12px;
+
+        min-width: 125px;
+    }
+
+    .legend-item {
+        font-size: 10px;
+    }
+
+    .journey-card {
+        padding: 20px;
+    }
+
+    .journey-card-top {
+        flex-direction: column;
+    }
+
+    .journey-distance {
+        align-self: flex-start;
+    }
+
+    .planned-journey {
+        padding: 17px;
+
+        gap: 12px;
+    }
+
+    .planned-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .planned-journey strong {
+        font-size: 18px;
+    }
+
+    .planned-status {
+        display: none;
+    }
+
+    .travel-achievements {
+        margin-top: 30px;
+    }
+
+    .achievement-card {
+        padding: 18px 10px;
+    }
+
+    .achievement-card strong {
+        font-size: 24px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .travel-page {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .travel-header h1 {
+        font-size: 36px;
+    }
+
+    .travel-stat {
+        min-width: 105px;
+
+        padding: 0 12px;
+    }
+
+    .travel-stat strong {
+        font-size: 24px;
+    }
+
+    .travel-stat span {
         font-size: 8px;
     }
 
-    .travel-location-card {
-        min-width: 0;
-        width: calc(100% - 30px);
+    .travel-map {
+        min-height: 470px;
     }
+
+    .travel-map-legend {
+        transform: scale(0.9);
+
+        transform-origin: bottom left;
+    }
+
 }
